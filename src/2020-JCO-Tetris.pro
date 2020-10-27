@@ -25,13 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        board.cpp \
         gamewindow.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        piece.cpp
 
 HEADERS += \
+        board.h \
         gamewindow.h \
         mainwindow.h \
+        piece.h \
         shapes.h
 
 FORMS += \
