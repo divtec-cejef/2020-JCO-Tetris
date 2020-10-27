@@ -25,16 +25,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        gamewindow.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        gamewindow.h \
+        mainwindow.h \
+        shapes.h
 
 FORMS += \
+        gamewindow.ui \
         mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    myres.qrc

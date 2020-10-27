@@ -108,12 +108,21 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuitter">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="myres.qrc">
+     <normaloff>:/Images/quitter.png</normaloff>:/Images/quitter.png</iconset>
+   </property>
    <property name="text">
     <string>Quitter</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="myres.qrc"/>
+ </resources>
  <connections/>
 </ui>
