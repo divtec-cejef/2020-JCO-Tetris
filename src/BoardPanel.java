@@ -6,108 +6,94 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- * The {@code BoardPanel} class is responsible for displaying the game grid and
- * handling things related to the game board.
- * @author Brendan Jones
- *
+ * Affiche la grille de jeu et gère les actions liées au plateau de jeu
+ * @author Membrez Matteo
  */
 public class BoardPanel extends JPanel {
 
 	/**
-	 * Serial Version UID.
+	 * l'UID de la version de série
 	 */
 	private static final long serialVersionUID = 5055679736784226108L;
 
-	/**
-	 * Minimum color component values for tiles. This is required if we
-	 * want to show both light and dark shading on our tiles.
-	 */
 	public static final int COLOR_MIN = 35;
-	
-	/**
-	 * Maximum color component values for tiles. This is required if we
-	 * want to show both light and dark shading on our tiles.
-	 */
 	public static final int COLOR_MAX = 255 - COLOR_MIN;
 	
 	/**
-	 * The width of the border around the game board.
+	 * Largeur de la bordure autour du plateau de jeu
 	 */
 	private static final int BORDER_WIDTH = 5;
 	
 	/**
-	 * The number of columns on the board.
+	 * Le nombre de colonnes sur le plateu.
 	 */
 	public static final int COL_COUNT = 10;
 		
 	/**
-	 * The number of visible rows on the board.
+	 * Le nombre de lignes visible sur le plateau
 	 */
 	private static final int VISIBLE_ROW_COUNT = 20;
 	
 	/**
-	 * The number of rows that are hidden from view.
+	 * Le nombre de lignes masquées
 	 */
 	private static final int HIDDEN_ROW_COUNT = 2;
 	
 	/**
-	 * The total number of rows that the board contains.
+	 * Le nombre total de lignes que contient le tableau
 	 */
 	public static final int ROW_COUNT = VISIBLE_ROW_COUNT + HIDDEN_ROW_COUNT;
 	
 	/**
-	 * The number of pixels that a tile takes up.
+	 * Le nombre de pixel nécessaire pour un carreau
 	 */
 	public static final int TILE_SIZE = 24;
 	
 	/**
-	 * The width of the shading on the tiles.
+	 * Largeur de l'effet d'ombre sur les carreaux
 	 */
 	public static final int SHADE_WIDTH = 4;
 	
 	/**
-	 * The central x coordinate on the game board.
+	 * Le centre X de la BoardPanel
 	 */
 	private static final int CENTER_X = COL_COUNT * TILE_SIZE / 2;
 	
 	/**
-	 * The central y coordinate on the game board.
+	 * Le centre Y de la BoardPanel
 	 */
 	private static final int CENTER_Y = VISIBLE_ROW_COUNT * TILE_SIZE / 2;
 		
 	/**
-	 * The total width of the panel.
+	 * La largeur totale du panneau
 	 */
 	public static final int PANEL_WIDTH = COL_COUNT * TILE_SIZE + BORDER_WIDTH * 2;
 	
 	/**
-	 * The total height of the panel.
+	 * La hauteur totale du panneau
 	 */
 	public static final int PANEL_HEIGHT = VISIBLE_ROW_COUNT * TILE_SIZE + BORDER_WIDTH * 2;
 	
 	/**
-	 * The larger font to display.
+	 * La plus grande police à afficher
 	 */
 	private static final Font LARGE_FONT = new Font("Tahoma", Font.BOLD, 16);
 
 	/**
-	 * The smaller font to display.
+	 * La plus petite police à afficher
 	 */
 	private static final Font SMALL_FONT = new Font("Tahoma", Font.BOLD, 12);
-	
-	/**
-	 * The Tetris instance.
-	 */
+
 	private Tetris tetris;
 	
 	/**
-	 * The tiles that make up the board.
+	 * Les tuiles qui composent le plateau
 	 */
 	private TileType[][] tiles;
 		
 	/**
-	 * Crates a new GameBoard instance.
-	 * @param tetris The Tetris instance to use.
+	 * Crée un nouveau plateau de jeu
+	 * @param tetris l'instance de tetris utilisé
 	 */
 	public BoardPanel(Tetris tetris) {
 		this.tetris = tetris;
@@ -118,13 +104,10 @@ public class BoardPanel extends JPanel {
 	}
 	
 	/**
-	 * Resets the board and clears away any tiles.
+	 * Réinitialise le plateau de jeu
 	 */
 	public void clear() {
-		/*
-		 * Loop through every tile index and set it's value
-		 * to null to clear the board.
-		 */
+
 		for(int i = 0; i < ROW_COUNT; i++) {
 			for(int j = 0; j < COL_COUNT; j++) {
 				tiles[i][j] = null;
@@ -133,30 +116,28 @@ public class BoardPanel extends JPanel {
 	}
 	
 	/**
-	 * Determines whether or not a piece can be placed at the coordinates.
-	 * @param type THe type of piece to use.
-	 * @param x The x coordinate of the piece.
-	 * @param y The y coordinate of the piece.
-	 * @param rotation The rotation of the piece.
-	 * @return Whether or not the position is valid.
+	 * Détermine si une pièce peut ou non être placée aux coordonnées.
+	 * @param type Le type de pièce
+	 * @param x La coordonnée X de la pièce
+	 * @param y La coordonnée Y de la pièce
+	 * @param rotation La rotation de la pièce
+	 * @return Si la position est valide ou non
 	 */
 	public boolean isValidAndEmpty(TileType type, int x, int y, int rotation) {
 				
-		//Ensure the piece is in a valid column.
+		// Assure que la pièce est dans une colonne valide
 		if(x < -type.getLeftInset(rotation) || x + type.getDimension() - type.getRightInset(rotation) >= COL_COUNT) {
 			return false;
 		}
 		
-		//Ensure the piece is in a valid row.
+		// Assure que la pièce est dans une ligne valide
 		if(y < -type.getTopInset(rotation) || y + type.getDimension() - type.getBottomInset(rotation) >= ROW_COUNT) {
 			return false;
 		}
 		
 		/*
-		 * Loop through every tile in the piece and see if it conflicts with an existing tile.
-		 * 
-		 * Note: It's fine to do this even though it allows for wrapping because we've already
-		 * checked to make sure the piece is in a valid location.
+		 * Pacourt chaque carreau de la pièce pour vérifier qu'il ne soit pas en conflit avec
+		 * un carreau existant.
 		 */
 		for(int col = 0; col < type.getDimension(); col++) {
 			for(int row = 0; row < type.getDimension(); row++) {
@@ -169,19 +150,14 @@ public class BoardPanel extends JPanel {
 	}
 	
 	/**
-	 * Adds a piece to the game board. Note: Doesn't check for existing pieces,
-	 * and will overwrite them if they exist.
-	 * @param type The type of piece to place.
-	 * @param x The x coordinate of the piece.
-	 * @param y The y coordinate of the piece.
-	 * @param rotation The rotation of the piece.
+	 * Ajoute une pièce au plateau de jeu
+	 * @param type le type de la pièce
+	 * @param x la coordonnée X de la pièce
+	 * @param y la coordonnée Y de la pièce
+	 * @param rotation la rotation de la pièce
 	 */
 	public void addPiece(TileType type, int x, int y, int rotation) {
-		/*
-		 * Loop through every tile within the piece and add it
-		 * to the board only if the boolean that represents that
-		 * tile is set to true.
-		 */
+
 		for(int col = 0; col < type.getDimension(); col++) {
 			for(int row = 0; row < type.getDimension(); row++) {
 				if(type.isTile(col, row, rotation)) {
@@ -192,21 +168,12 @@ public class BoardPanel extends JPanel {
 	}
 	
 	/**
-	 * Checks the board to see if any lines have been cleared, and
-	 * removes them from the game.
-	 * @return The number of lines that were cleared.
+	 * Vérifie le tableau pour voir si des lignes ont été effacées et les supprime du jeu
+	 * @return le nombre de lignes qui ont été effacées
 	 */
 	public int checkLines() {
 		int completedLines = 0;
-		
-		/*
-		 * Here we loop through every line and check it to see if
-		 * it's been cleared or not. If it has, we increment the
-		 * number of completed lines and check the next row.
-		 * 
-		 * The checkLine function handles clearing the line and
-		 * shifting the rest of the board down for us.
-		 */
+
 		for(int row = 0; row < ROW_COUNT; row++) {
 			if(checkLine(row)) {
 				completedLines++;
@@ -216,14 +183,14 @@ public class BoardPanel extends JPanel {
 	}
 			
 	/**
-	 * Checks whether or not {@code row} is full.
-	 * @param line The row to check.
-	 * @return Whether or not this row is full.
+	 * Vérifie si la ligne est pleine ou non
+	 * @param line la ligne à vérifier
+	 * @return si la ligne est plein ou non
 	 */
 	private boolean checkLine(int line) {
 		/*
-		 * Iterate through every column in this row. If any of them are
-		 * empty, then the row is not full.
+		 * Parcourt chaque colonne de cette ligne, si l'une d'elle est vide
+		 * la ligne n'est pas pleine
 		 */
 		for(int col = 0; col < COL_COUNT; col++) {
 			if(!isOccupied(col, line)) {
@@ -232,8 +199,8 @@ public class BoardPanel extends JPanel {
 		}
 		
 		/*
-		 * Since the line is filled, we need to 'remove' it from the game.
-		 * To do this, we simply shift every row above it down by one.
+		 * Puisque la ligne est remplie il faut la supprimer
+		 * Pour cela il faut décaler chaque ligne au-dessus d'une unité
 		 */
 		for(int row = line - 1; row >= 0; row--) {
 			for(int col = 0; col < COL_COUNT; col++) {
@@ -245,30 +212,30 @@ public class BoardPanel extends JPanel {
 	
 	
 	/**
-	 * Checks to see if the tile is already occupied.
-	 * @param x The x coordinate to check.
-	 * @param y The y coordinate to check.
-	 * @return Whether or not the tile is occupied.
+	 * Vérifie si le carreau est déjà occupé
+	 * @param x La coordonnée X à vérifier
+	 * @param y La coordonnée Y à vérifier
+	 * @return Si le carreau est occupé ou non
 	 */
 	private boolean isOccupied(int x, int y) {
 		return tiles[y][x] != null;
 	}
 	
 	/**
-	 * Sets a tile located at the desired column and row.
-	 * @param x The column.
-	 * @param y The row.
-	 * @param type The value to set to the tile to.
+	 * Définit un carreau à la colonne et la ligne souhaitées.
+	 * @param x la colonne
+	 * @param y la ligne
+	 * @param type le type à définir pour le carreau
 	 */
 	private void setTile(int  x, int y, TileType type) {
 		tiles[y][x] = type;
 	}
 		
 	/**
-	 * Gets a tile by it's column and row.
-	 * @param x The column.
-	 * @param y The row.
-	 * @return The tile.
+	 * Récupère un carreau par sa colonne et sa ligne
+	 * @param x la colonne
+	 * @param y la ligne
+	 * @return le carreau
 	 */
 	private TileType getTile(int x, int y) {
 		return tiles[y][x];
@@ -277,12 +244,11 @@ public class BoardPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		//This helps simplify the positioning of things.
+
 		g.translate(BORDER_WIDTH, BORDER_WIDTH);
 		
 		/*
-		 * Draw the board differently depending on the current game state.
+		 * Dessine le plateau différement selon l'était actuel du jeu
 		 */
 		if(tetris.isPaused()) {
 			g.setFont(LARGE_FONT);
@@ -292,12 +258,7 @@ public class BoardPanel extends JPanel {
 		} else if(tetris.isNewGame() || tetris.isGameOver()) {
 			g.setFont(LARGE_FONT);
 			g.setColor(Color.WHITE);
-			
-			/*
-			 * Because both the game over and new game screens are nearly identical,
-			 * we can handle them together and just use a ternary operator to change
-			 * the messages that are displayed.
-			 */
+
 			String msg = tetris.isNewGame() ? "TETRIS" : "GAME OVER";
 			g.drawString(msg, CENTER_X - g.getFontMetrics().stringWidth(msg) / 2, 150);
 			g.setFont(SMALL_FONT);
@@ -306,7 +267,7 @@ public class BoardPanel extends JPanel {
 		} else {
 			
 			/*
-			 * Draw the tiles onto the board.
+			 * Dessine le carreau dans le plateau
 			 */
 			for(int x = 0; x < COL_COUNT; x++) {
 				for(int y = HIDDEN_ROW_COUNT; y < ROW_COUNT; y++) {
@@ -316,19 +277,12 @@ public class BoardPanel extends JPanel {
 					}
 				}
 			}
-			
-			/*
-			 * Draw the current piece. This cannot be drawn like the rest of the
-			 * pieces because it's still not part of the game board. If it were
-			 * part of the board, it would need to be removed every frame which
-			 * would just be slow and confusing.
-			 */
+
 			TileType type = tetris.getPieceType();
 			int pieceCol = tetris.getPieceCol();
 			int pieceRow = tetris.getPieceRow();
 			int rotation = tetris.getPieceRotation();
-			
-			//Draw the piece onto the board.
+
 			for(int col = 0; col < type.getDimension(); col++) {
 				for(int row = 0; row < type.getDimension(); row++) {
 					if(pieceRow + row >= 2 && type.isTile(col, row, rotation)) {
@@ -338,9 +292,7 @@ public class BoardPanel extends JPanel {
 			}
 			
 			/*
-			 * Draw the ghost (semi-transparent piece that shows where the current piece will land). I couldn't think of
-			 * a better way to implement this so it'll have to do for now. We simply take the current position and move
-			 * down until we hit a row that would cause a collision.
+			 * Dessine la pièce fantôme (la pièce transparente qui montre où la pièce va atterir)
 			 */
 			Color base = type.getBaseColor();
 			base = new Color(base.getRed(), base.getGreen(), base.getBlue(), 20);
@@ -350,10 +302,9 @@ public class BoardPanel extends JPanel {
 					continue;
 				}
 				
-				//Draw the ghost one row higher than the one the collision took place at.
+				// Dessine la pièce fantôme une ligne au dessus de la collision
 				lowest--;
-				
-				//Draw the ghost piece.
+
 				for(int col = 0; col < type.getDimension(); col++) {
 					for(int row = 0; row < type.getDimension(); row++) {
 						if(lowest + row >= 2 && type.isTile(col, row, rotation)) {
@@ -366,8 +317,7 @@ public class BoardPanel extends JPanel {
 			}
 			
 			/*
-			 * Draw the background grid above the pieces (serves as a useful visual
-			 * for players, and makes the pieces look nicer by breaking them up.
+			 * Dessine la grille d'arrière-plan
 			 */
 			g.setColor(Color.DARK_GRAY);
 			for(int x = 0; x < COL_COUNT; x++) {
@@ -379,51 +329,49 @@ public class BoardPanel extends JPanel {
 		}
 		
 		/*
-		 * Draw the outline.
+		 * Dessine le contour
 		 */
 		g.setColor(Color.WHITE);
 		g.drawRect(0, 0, TILE_SIZE * COL_COUNT, TILE_SIZE * VISIBLE_ROW_COUNT);
 	}
 	
 	/**
-	 * Draws a tile onto the board.
-	 * @param type The type of tile to draw.
-	 * @param x The column.
-	 * @param y The row.
-	 * @param g The graphics object.
+	 * Dessine un carreau sur le plateau
+	 * @param type le type de pièce à dessiner
+	 * @param x la colonne
+	 * @param y la ligne
+	 * @param g l'objet graphique
 	 */
 	private void drawTile(TileType type, int x, int y, Graphics g) {
 		drawTile(type.getBaseColor(), type.getLightColor(), type.getDarkColor(), x, y, g);
 	}
 	
 	/**
-	 * Draws a tile onto the board.
-	 * @param base The base color of tile.
-	 * @param light The light color of the tile.
-	 * @param dark The dark color of the tile.
-	 * @param x The column.
-	 * @param y The row.
-	 * @param g The graphics object.
+	 * Dessine un carreau sur le plateau
+	 * @param base la couleur de base de la pièce
+	 * @param light l'effet de lumière de la pièce
+	 * @param dark l'effet d'ombre de la pièce
+	 * @param x la colonne
+	 * @param y la ligne
+	 * @param g l'objet graphique
 	 */
 	private void drawTile(Color base, Color light, Color dark, int x, int y, Graphics g) {
 		
 		/*
-		 * Fill the entire tile with the base color.
+		 * Rempli le carreau entier avec la couleur de base
 		 */
 		g.setColor(base);
 		g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
 		
 		/*
-		 * Fill the bottom and right edges of the tile with the dark shading color.
+		 * Ajoute les effets d'ombre au carreau
 		 */
 		g.setColor(dark);
 		g.fillRect(x, y + TILE_SIZE - SHADE_WIDTH, TILE_SIZE, SHADE_WIDTH);
 		g.fillRect(x + TILE_SIZE - SHADE_WIDTH, y, SHADE_WIDTH, TILE_SIZE);
 		
 		/*
-		 * Fill the top and left edges with the light shading. We draw a single line
-		 * for each row or column rather than a rectangle so that we can draw a nice
-		 * looking diagonal where the light and dark shading meet.
+		 * Ajoute les effets de lumière au carreau
 		 */
 		g.setColor(light);
 		for(int i = 0; i < SHADE_WIDTH; i++) {

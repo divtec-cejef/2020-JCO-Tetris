@@ -6,97 +6,88 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- * The {@code SidePanel} class is responsible for displaying various information
- * on the game such as the next piece, the score and current level, and controls.
- * @author Brendan Jones
- *
+ * Affiche les diverses informations sur le jeu, comme
+ * la pièce suivante, le score, le niveau actuel et les commandes.
+ * @author Membrez Matteo
  */
 public class SidePanel extends JPanel {
-	
+
 	/**
-	 * Serial Version UID.
+	 * l'UID de la version de série
 	 */
+
 	private static final long serialVersionUID = 2181495598854992747L;
 
 	/**
-	 * The dimensions of each tile on the next piece preview.
+	 * Les dimensions de chaque carreau sur l'affichage de la pièce suivante
 	 */
 	private static final int TILE_SIZE = BoardPanel.TILE_SIZE >> 1;
-	
+
 	/**
-	 * The width of the shading on each tile on the next piece preview.
+	 * La largeur des effets d'ombres sur l'affichage de la pièce suivante
 	 */
 	private static final int SHADE_WIDTH = BoardPanel.SHADE_WIDTH >> 1;
-	
+
 	/**
-	 * The number of rows and columns in the preview window. Set to
-	 * 5 because we can show any piece with some sort of padding.
+	 * Le nombre de lignes et de colonnes dans l'affichage de la pièce suivante
 	 */
 	private static final int TILE_COUNT = 5;
-	
+
 	/**
-	 * The center x of the next piece preview box.
+	 * Le centre X de la zone de prévisualisation de la prochaine pièce
 	 */
 	private static final int SQUARE_CENTER_X = 130;
-	
+
 	/**
-	 * The center y of the next piece preview box.
+	 * Le centre Y de la zone de prévisualisation de la porchaine pièce
 	 */
 	private static final int SQUARE_CENTER_Y = 65;
-	
+
 	/**
-	 * The size of the next piece preview box.
+	 * La taille de la zone de prévisualisation de la prochaine pièce
 	 */
 	private static final int SQUARE_SIZE = (TILE_SIZE * TILE_COUNT >> 1);
-	
-	/**
-	 * The number of pixels used on a small insets (generally used for categories).
-	 */
+
+
 	private static final int SMALL_INSET = 20;
-	
-	/**
-	 * The number of pixels used on a large insets.
-	 */
 	private static final int LARGE_INSET = 40;
-	
+
 	/**
-	 * The y coordinate of the stats category.
+	 * La position y des statistiques
 	 */
 	private static final int STATS_INSET = 175;
-	
+
 	/**
-	 * The y coordinate of the controls category.
+	 * La position y des contrôles
 	 */
 	private static final int CONTROLS_INSET = 300;
-	
+
 	/**
-	 * The number of pixels to offset between each string.
+	 * Le nombre de pixels à décaler entre chaque chaînes
 	 */
 	private static final int TEXT_STRIDE = 25;
-	
+
 	/**
-	 * The small font.
+	 * La petite police
 	 */
 	private static final Font SMALL_FONT = new Font("Tahoma", Font.BOLD, 11);
-	
+
 	/**
-	 * The large font.
+	 * La grande police
 	 */
 	private static final Font LARGE_FONT = new Font("Tahoma", Font.BOLD, 13);
-	
+
 	/**
-	 * The color to draw the text and preview box in.
+	 * La couleur du text
 	 */
 	private static final Color DRAW_COLOR = new Color(128, 192, 128);
 	
-	/**
-	 * The Tetris instance.
-	 */
+
 	private Tetris tetris;
 	
 	/**
-	 * Creates a new SidePanel and sets it's display properties.
-	 * @param tetris The Tetris instance to use.
+	 * Constructeur d'un SidePanel
+	 * @param tetris l'instance de tetris à utiliser
 	 */
 	public SidePanel(Tetris tetris) {
 		this.tetris = tetris;
@@ -109,18 +100,13 @@ public class SidePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		//Set the color for drawing.
+		// Défini la couleur
 		g.setColor(DRAW_COLOR);
-		
-		/*
-		 * This variable stores the current y coordinate of the string.
-		 * This way we can re-order, add, or remove new strings if necessary
-		 * without needing to change the other strings.
-		 */
+
 		int offset;
 		
 		/*
-		 * Draw the "Stats" category.
+		 * Crée l'affichage des statistiques
 		 */
 		g.setFont(LARGE_FONT);
 		g.drawString("Stats", SMALL_INSET, offset = STATS_INSET);
@@ -129,7 +115,7 @@ public class SidePanel extends JPanel {
 		g.drawString("Score: " + tetris.getScore(), LARGE_INSET, offset += TEXT_STRIDE);
 		
 		/*
-		 * Draw the "Controls" category.
+		 * Crée l'affichage des contrôles
 		 */
 		g.setFont(LARGE_FONT);
 		g.drawString("Controls", SMALL_INSET, offset = CONTROLS_INSET);
@@ -142,41 +128,35 @@ public class SidePanel extends JPanel {
 		g.drawString("P - Pause Game", LARGE_INSET, offset += TEXT_STRIDE);
 		
 		/*
-		 * Draw the next piece preview box.
+		 * Crée l'affichage de la prochaine pièce
 		 */
 		g.setFont(LARGE_FONT);
 		g.drawString("Next Piece:", SMALL_INSET, 70);
 		g.drawRect(SQUARE_CENTER_X - SQUARE_SIZE, SQUARE_CENTER_Y - SQUARE_SIZE, SQUARE_SIZE * 2, SQUARE_SIZE * 2);
 		
 		/*
-		 * Draw a preview of the next piece that will be spawned. The code is pretty much
-		 * identical to the drawing code on the board, just smaller and centered, rather
-		 * than constrained to a grid.
+		 * Génère la prochaine pièce
 		 */
 		TileType type = tetris.getNextPieceType();
 		if(!tetris.isGameOver() && type != null) {
 			/*
-			 * Get the size properties of the current piece.
+			 * Récupère les propriétés de la taille de la pièce actuelle
 			 */
 			int cols = type.getCols();
 			int rows = type.getRows();
 			int dimension = type.getDimension();
 		
 			/*
-			 * Calculate the top left corner (origin) of the piece.
+			 * Calcul le coin en haut à gauche de la pièce
 			 */
 			int startX = (SQUARE_CENTER_X - (cols * TILE_SIZE / 2));
 			int startY = (SQUARE_CENTER_Y - (rows * TILE_SIZE / 2));
-		
-			/*
-			 * Get the insets for the preview. The default
-			 * rotation is used for the preview, so we just use 0.
-			 */
+
 			int top = type.getTopInset(0);
 			int left = type.getLeftInset(0);
 		
 			/*
-			 * Loop through the piece and draw it's tiles onto the preview.
+			 * Dessine la prochaine pièce
 			 */
 			for(int row = 0; row < dimension; row++) {
 				for(int col = 0; col < dimension; col++) {
@@ -189,31 +169,25 @@ public class SidePanel extends JPanel {
 	}
 	
 	/**
-	 * Draws a tile onto the preview window.
-	 * @param type The type of tile to draw.
-	 * @param x The x coordinate of the tile.
-	 * @param y The y coordinate of the tile.
-	 * @param g The graphics object.
+	 * Dessine la prochaine pièce dans la zone de prévisualisation
+	 * @param type Le type de la pièce
+	 * @param x la coordonnée x de la pièce
+	 * @param y la coordonnée y de la pièce
+	 * @param g l'objet graphique
 	 */
 	private void drawTile(TileType type, int x, int y, Graphics g) {
 		/*
-		 * Fill the entire tile with the base color.
+		 * Applique la couleur
 		 */
 		g.setColor(type.getBaseColor());
 		g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
 		
 		/*
-		 * Fill the bottom and right edges of the tile with the dark shading color.
+		 * Applique les effets de lumière et d'ombre
 		 */
 		g.setColor(type.getDarkColor());
 		g.fillRect(x, y + TILE_SIZE - SHADE_WIDTH, TILE_SIZE, SHADE_WIDTH);
 		g.fillRect(x + TILE_SIZE - SHADE_WIDTH, y, SHADE_WIDTH, TILE_SIZE);
-		
-		/*
-		 * Fill the top and left edges with the light shading. We draw a single line
-		 * for each row or column rather than a rectangle so that we can draw a nice
-		 * looking diagonal where the light and dark shading meet.
-		 */
 		g.setColor(type.getLightColor());
 		for(int i = 0; i < SHADE_WIDTH; i++) {
 			g.drawLine(x, y + i, x + TILE_SIZE - i - 1, y + i);

@@ -6,118 +6,112 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 /**
- * The {@code Tetris} class is responsible for handling much of the game logic and
- * reading user input.
- * @author Brendan Jones
- *
+ * Gère une grande partie de la logique du jeu et de la lecture de l'entrée utilisateur
+ * @author Membrez Matteo
  */
 public class Tetris extends JFrame {
 	
 	/**
-	 * The Serial Version UID.
+	 * l'UID de la version de série
 	 */
 	private static final long serialVersionUID = -4722429764792514382L;
 
 	/**
-	 * The number of milliseconds per frame.
+	 * le nombre de millisecondes par image
 	 */
 	private static final long FRAME_TIME = 1000L / 50L;
 	
 	/**
-	 * The number of pieces that exist.
+	 * Le nombre de pièces qu'il existe
 	 */
 	private static final int TYPE_COUNT = TileType.values().length;
 		
 	/**
-	 * The BoardPanel instance.
+	 * Instance du BoardPanel
 	 */
 	private BoardPanel board;
 	
 	/**
-	 * The SidePanel instance.
+	 * Instance du SidePanel
 	 */
 	private SidePanel side;
 	
 	/**
-	 * Whether or not the game is paused.
+	 * Est-ce que le jeu est en pause ou non
 	 */
 	private boolean isPaused;
 	
 	/**
-	 * Whether or not we've played a game yet. This is set to true
-	 * initially and then set to false when the game starts.
+	 * Est-ce qu'une partie à déjà été jouée
 	 */
 	private boolean isNewGame;
 	
 	/**
-	 * Whether or not the game is over.
+	 * Est-ce que le jeu est fini ou non
 	 */
 	private boolean isGameOver;
 	
 	/**
-	 * The current level we're on.
+	 * Le niveau actuel
 	 */
 	private int level;
 	
 	/**
-	 * The current score.
+	 * Le score actuel
 	 */
 	private int score;
 	
 	/**
-	 * The random number generator. This is used to
-	 * spit out pieces randomly.
+	 * Générateur de nombre pseudo-aléatoire utilisé pour tirer au hazard la pièce suivante
 	 */
 	private Random random;
 	
 	/**
-	 * The clock that handles the update logic.
+	 * Timer qui gère la mise à jour
 	 */
 	private Clock logicTimer;
 				
 	/**
-	 * The current type of tile.
+	 * le type de carreau actuel
 	 */
 	private TileType currentType;
 	
 	/**
-	 * The next type of tile.
+	 * le prochain type de carreau
 	 */
 	private TileType nextType;
 		
 	/**
-	 * The current column of our tile.
+	 * la colonne actuelle du carreau
 	 */
 	private int currentCol;
 	
 	/**
-	 * The current row of our tile.
+	 * la ligne actuelle du carreau
 	 */
 	private int currentRow;
-	
+
 	/**
-	 * The current rotation of our tile.
+	 * la rotation actuelle du carreau
 	 */
 	private int currentRotation;
 		
 	/**
-	 * Ensures that a certain amount of time passes after a piece is
-	 * spawned before we can drop it.
+	 * Applique un cooldown avant que l'on puisse faire tomber la pièce
 	 */
 	private int dropCooldown;
 	
 	/**
-	 * The speed of the game.
+	 * la vitesse du jeu
 	 */
 	private float gameSpeed;
 		
 	/**
-	 * Creates a new Tetris instance. Sets up the window's properties,
-	 * and adds a controller listener.
+	 * Création d'une nouvelle instance de Tetris
 	 */
 	private Tetris() {
 		/*
-		 * Set the basic properties of the window.
+		 * Configure les propriétée de la fenêtre
 		 */
 		super("Tetris");
 		setLayout(new BorderLayout());
@@ -125,31 +119,30 @@ public class Tetris extends JFrame {
 		setResizable(false);
 		
 		/*
-		 * Initialize the BoardPanel and SidePanel instances.
+		 * Initialise les instances du BoardPanel et du SidePanel
 		 */
 		this.board = new BoardPanel(this);
 		this.side = new SidePanel(this);
 		
 		/*
-		 * Add the BoardPanel and SidePanel instances to the window.
+		 * Ajoute les instances du BoardPanel et du SidePanel à la fenêtre
 		 */
 		add(board, BorderLayout.CENTER);
 		add(side, BorderLayout.EAST);
-		
-		/*
-		 * Adds a custom anonymous KeyListener to the frame.
-		 */
+
 		addKeyListener(new KeyAdapter() {
 			
 			@Override
+			/**
+			 * Evenements effectués lors de la pression sur les différentes touches.
+			 */
 			public void keyPressed(KeyEvent e) {
 								
 				switch(e.getKeyCode()) {
 				
 				/*
-				 * Drop - When pressed, we check to see that the game is not
-				 * paused and that there is no drop cooldown, then set the
-				 * logic timer to run at a speed of 25 cycles per second.
+				 * Fait tomber la pièce si le jeu n'est pas en pause
+				 * et qu'il n'y a pas de cooldown.
 				 */
 				case KeyEvent.VK_S:
 					if(!isPaused && dropCooldown == 0) {
@@ -158,9 +151,8 @@ public class Tetris extends JFrame {
 					break;
 					
 				/*
-				 * Move Left - When pressed, we check to see that the game is
-				 * not paused and that the position to the left of the current
-				 * position is valid. If so, we decrement the current column by 1.
+				 * Se déplace à gauche si le jeu n'est pas en pause
+				 * et que la pièce n'est pas déjà tout à gauche
 				 */
 				case KeyEvent.VK_A:
 					if(!isPaused && board.isValidAndEmpty(currentType, currentCol - 1, currentRow, currentRotation)) {
@@ -169,9 +161,8 @@ public class Tetris extends JFrame {
 					break;
 					
 				/*
-				 * Move Right - When pressed, we check to see that the game is
-				 * not paused and that the position to the right of the current
-				 * position is valid. If so, we increment the current column by 1.
+				 * Se déplace à droite si le jeu n'est pas en pause
+				 * et que la pièce n'est pas déjà tout à droite
 				 */
 				case KeyEvent.VK_D:
 					if(!isPaused && board.isValidAndEmpty(currentType, currentCol + 1, currentRow, currentRotation)) {
@@ -180,10 +171,7 @@ public class Tetris extends JFrame {
 					break;
 					
 				/*
-				 * Rotate Anticlockwise - When pressed, check to see that the game is not paused
-				 * and then attempt to rotate the piece anticlockwise. Because of the size and
-				 * complexity of the rotation code, as well as it's similarity to clockwise
-				 * rotation, the code for rotating the piece is handled in another method.
+				 * Effectue une rotation de la pièce sur la gauche
 				 */
 				case KeyEvent.VK_Q:
 					if(!isPaused) {
@@ -192,10 +180,7 @@ public class Tetris extends JFrame {
 					break;
 				
 				/*
-			     * Rotate Clockwise - When pressed, check to see that the game is not paused
-				 * and then attempt to rotate the piece clockwise. Because of the size and
-				 * complexity of the rotation code, as well as it's similarity to anticlockwise
-				 * rotation, the code for rotating the piece is handled in another method.
+			     * Effectue une rotation de la pièce sur la droite
 				 */
 				case KeyEvent.VK_E:
 					if(!isPaused) {
@@ -204,11 +189,7 @@ public class Tetris extends JFrame {
 					break;
 					
 				/*
-				 * Pause Game - When pressed, check to see that we're currently playing a game.
-				 * If so, toggle the pause variable and update the logic timer to reflect this
-				 * change, otherwise the game will execute a huge number of updates and essentially
-				 * cause an instant game over when we unpause if we stay paused for more than a
-				 * minute or so.
+				 * Met le jeu en pause si la partie n'est pas fini et qu'elle a déjà commencé
 				 */
 				case KeyEvent.VK_P:
 					if(!isGameOver && !isNewGame) {
@@ -218,8 +199,7 @@ public class Tetris extends JFrame {
 					break;
 				
 				/*
-				 * Start Game - When pressed, check to see that we're in either a game over or new
-				 * game state. If so, reset the game.
+				 * Lance la partie
 				 */
 				case KeyEvent.VK_ENTER:
 					if(isGameOver || isNewGame) {
@@ -236,9 +216,7 @@ public class Tetris extends JFrame {
 				switch(e.getKeyCode()) {
 				
 				/*
-				 * Drop - When released, we set the speed of the logic timer
-				 * back to whatever the current game speed is and clear out
-				 * any cycles that might still be elapsed.
+				 * Redonne la vitesse de base à la pièce lorsque la touche est relâchée
 				 */
 				case KeyEvent.VK_S:
 					logicTimer.setCyclesPerSecond(gameSpeed);
@@ -249,60 +227,47 @@ public class Tetris extends JFrame {
 			}
 			
 		});
-		
-		/*
-		 * Here we resize the frame to hold the BoardPanel and SidePanel instances,
-		 * center the window on the screen, and show it to the user.
-		 */
+
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
 	/**
-	 * Starts the game running. Initializes everything and enters the game loop.
+	 * Début de la partie
 	 */
 	private void startGame() {
-		/*
-		 * Initialize our random number generator, logic timer, and new game variables.
-		 */
+
 		this.random = new Random();
 		this.isNewGame = true;
 		this.gameSpeed = 1.0f;
 		
 		/*
-		 * Setup the timer to keep the game from running before the user presses enter
-		 * to start it.
+		 * Configuration du timer
 		 */
 		this.logicTimer = new Clock(gameSpeed);
 		logicTimer.setPaused(true);
 		
 		while(true) {
-			//Get the time that the frame started.
 			long start = System.nanoTime();
-			
-			//Update the logic timer.
+
 			logicTimer.update();
 			
 			/*
-			 * If a cycle has elapsed on the timer, we can update the game and
-			 * move our current piece down.
+			 * Met à jour le jeu en fonction du temps écoulé
 			 */
 			if(logicTimer.hasElapsedCycle()) {
 				updateGame();
 			}
 		
-			//Decrement the drop cool down if necessary.
+			// Décrémente le cooldown si nécéssaire
 			if(dropCooldown > 0) {
 				dropCooldown--;
 			}
 			
-			//Display the window to the user.
+			// Affichage
 			renderGame();
-			
-			/*
-			 * Sleep to cap the framerate.
-			 */
+
 			long delta = (System.nanoTime() - start) / 1000000L;
 			if(delta < FRAME_TIME) {
 				try {
@@ -315,25 +280,20 @@ public class Tetris extends JFrame {
 	}
 	
 	/**
-	 * Updates the game and handles the bulk of it's logic.
+	 * Mets à jour le jeu
 	 */
 	private void updateGame() {
 		/*
-		 * Check to see if the piece's position can move down to the next row.
+		 * Vérifie si la pièce peut déscendre
 		 */
 		if(board.isValidAndEmpty(currentType, currentCol, currentRow + 1, currentRotation)) {
-			//Increment the current row if it's safe to do so.
 			currentRow++;
 		} else {
-			/*
-			 * We've either reached the bottom of the board, or landed on another piece, so
-			 * we need to add the piece to the board.
-			 */
 			board.addPiece(currentType, currentCol, currentRow, currentRotation);
 			
 			/*
-			 * Check to see if adding the new piece resulted in any cleared lines. If so,
-			 * increase the player's score. (Up to 4 lines can be cleared in a single go;
+			 * Vérifie si l'ajout de la pièce a effacé d'autres lignes
+			 * Augmente le score selon le nombre de lignes effacées en 1 coup
 			 * [1 = 100pts, 2 = 200pts, 3 = 400pts, 4 = 800pts]).
 			 */
 			int cleared = board.checkLines();
@@ -342,44 +302,33 @@ public class Tetris extends JFrame {
 			}
 			
 			/*
-			 * Increase the speed slightly for the next piece and update the game's timer
-			 * to reflect the increase.
+			 * Augmente la vitesse de la pièce suivante
 			 */
 			gameSpeed += 0.035f;
 			logicTimer.setCyclesPerSecond(gameSpeed);
 			logicTimer.reset();
-			
-			/*
-			 * Set the drop cooldown so the next piece doesn't automatically come flying
-			 * in from the heavens immediately after this piece hits if we've not reacted
-			 * yet. (~0.5 second buffer).
-			 */
+
 			dropCooldown = 25;
 			
 			/*
-			 * Update the difficulty level. This has no effect on the game, and is only
-			 * used in the "Level" string in the SidePanel.
+			 * Change le niveau de difficulté
 			 */
 			level = (int)(gameSpeed * 1.70f);
 			
 			/*
-			 * Spawn a new piece to control.
+			 * Création d'une nouvelle pièce
 			 */
 			spawnPiece();
 		}		
 	}
-	
-	/**
-	 * Forces the BoardPanel and SidePanel to repaint.
-	 */
+
 	private void renderGame() {
 		board.repaint();
 		side.repaint();
 	}
 	
 	/**
-	 * Resets the game variables to their default values at the start
-	 * of a new game.
+	 * Réinitialise les variables du jeu à leurs valeur de base
 	 */
 	private void resetGame() {
 		this.level = 1;
@@ -395,14 +344,10 @@ public class Tetris extends JFrame {
 	}
 		
 	/**
-	 * Spawns a new piece and resets our piece's variables to their default
-	 * values.
+	 * Créér une nouvelle pièce et réinitialiser les variables
 	 */
 	private void spawnPiece() {
-		/*
-		 * Poll the last piece and reset our position and rotation to
-		 * their default variables, then pick the next piece to use.
-		 */
+
 		this.currentType = nextType;
 		this.currentCol = currentType.getSpawnColumn();
 		this.currentRow = currentType.getSpawnRow();
@@ -410,8 +355,8 @@ public class Tetris extends JFrame {
 		this.nextType = TileType.values()[random.nextInt(TYPE_COUNT)];
 		
 		/*
-		 * If the spawn point is invalid, we need to pause the game and flag that we've lost
-		 * because it means that the pieces on the board have gotten too high.
+		 * Si le point d'appartion n'est pas valide, met en pause et termine la partie
+		 * car cela signifie que les pièces sont allées trop haut
 		 */
 		if(!board.isValidAndEmpty(currentType, currentCol, currentRow, currentRotation)) {
 			this.isGameOver = true;
@@ -420,30 +365,24 @@ public class Tetris extends JFrame {
 	}
 
 	/**
-	 * Attempts to set the rotation of the current piece to newRotation.
-	 * @param newRotation The rotation of the new peice.
+	 * Défini la rotation de la pièce actuelle
+	 * @param newRotation la rotation de la nouvelle pièce
 	 */
 	private void rotatePiece(int newRotation) {
-		/*
-		 * Sometimes pieces will need to be moved when rotated to avoid clipping
-		 * out of the board (the I piece is a good example of this). Here we store
-		 * a temporary row and column in case we need to move the tile as well.
-		 */
+
 		int newColumn = currentCol;
 		int newRow = currentRow;
 		
 		/*
-		 * Get the insets for each of the sides. These are used to determine how
-		 * many empty rows or columns there are on a given side.
+		 * Mémorise le nombre de colonnes et lignes vides de chaque côté
 		 */
 		int left = currentType.getLeftInset(newRotation);
 		int right = currentType.getRightInset(newRotation);
 		int top = currentType.getTopInset(newRotation);
 		int bottom = currentType.getBottomInset(newRotation);
-		
+
 		/*
-		 * If the current piece is too far to the left or right, move the piece away from the edges
-		 * so that the piece doesn't clip out of the map and automatically become invalid.
+		 * S'assure que la pièce actuelle n'est pas trop à gauche ou trop à droite
 		 */
 		if(currentCol < -left) {
 			newColumn -= currentCol - left;
@@ -452,8 +391,7 @@ public class Tetris extends JFrame {
 		}
 		
 		/*
-		 * If the current piece is too far to the top or bottom, move the piece away from the edges
-		 * so that the piece doesn't clip out of the map and automatically become invalid.
+		 * S'assure que la pièce actuelle n'est pas trop haute ou trop basse
 		 */
 		if(currentRow < -top) {
 			newRow -= currentRow - top;
@@ -462,8 +400,7 @@ public class Tetris extends JFrame {
 		}
 		
 		/*
-		 * Check to see if the new position is acceptable. If it is, update the rotation and
-		 * position of the piece.
+		 * Vérifie si la nouvelle position est correcte et mets à jour la rotation si c'est le cas
 		 */
 		if(board.isValidAndEmpty(currentType, newColumn, newRow, newRotation)) {
 			currentRotation = newRotation;
@@ -473,89 +410,77 @@ public class Tetris extends JFrame {
 	}
 	
 	/**
-	 * Checks to see whether or not the game is paused.
-	 * @return Whether or not the game is paused.
+	 * @return Si le jeu est en pause ou non
 	 */
 	public boolean isPaused() {
 		return isPaused;
 	}
 	
 	/**
-	 * Checks to see whether or not the game is over.
-	 * @return Whether or not the game is over.
+	 * @return Si la partie est finie ou non
 	 */
 	public boolean isGameOver() {
 		return isGameOver;
 	}
 	
 	/**
-	 * Checks to see whether or not we're on a new game.
-	 * @return Whether or not this is a new game.
+	 * @return Si c'est une nouvelle partie ou non
 	 */
 	public boolean isNewGame() {
 		return isNewGame;
 	}
 	
 	/**
-	 * Gets the current score.
-	 * @return The score.
+	 * @return le score actuel
 	 */
 	public int getScore() {
 		return score;
 	}
 	
 	/**
-	 * Gets the current level.
-	 * @return The level.
+	 * @return le niveau actuel
 	 */
 	public int getLevel() {
 		return level;
 	}
 	
 	/**
-	 * Gets the current type of piece we're using.
-	 * @return The piece type.
+	 * @return le type de pièce
 	 */
 	public TileType getPieceType() {
 		return currentType;
 	}
 	
 	/**
-	 * Gets the next type of piece we're using.
-	 * @return The next piece.
+	 * @return Le prochain type de pièce
 	 */
 	public TileType getNextPieceType() {
 		return nextType;
 	}
 	
 	/**
-	 * Gets the column of the current piece.
-	 * @return The column.
+	 * @return la colonne de la pièce actuelle
 	 */
 	public int getPieceCol() {
 		return currentCol;
 	}
 	
 	/**
-	 * Gets the row of the current piece.
-	 * @return The row.
+	 * @return la ligne de la pièce actuelle
 	 */
 	public int getPieceRow() {
 		return currentRow;
 	}
 	
 	/**
-	 * Gets the rotation of the current piece.
-	 * @return The rotation.
+	 * @return la rotation de la pièce actuelle
 	 */
 	public int getPieceRotation() {
 		return currentRotation;
 	}
 
 	/**
-	 * Entry-point of the game. Responsible for creating and starting a new
-	 * game instance.
-	 * @param args Unused.
+	 * Point d'entré du jeu
 	 */
 	public static void main(String[] args) {
 		Tetris tetris = new Tetris();
