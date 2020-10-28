@@ -1,14 +1,14 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-10-27T08:18:02
+# Project created by QtCreator 2018-08-21T21:19:19
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = 2020-JCO-Tetris
+TARGET = Tetris
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -22,30 +22,39 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
-
 SOURCES += \
-        board.cpp \
-        gamewindow.cpp \
+        intro_window.cpp \
         main.cpp \
-        mainwindow.cpp \
-        piece.cpp
+        game_window.cpp \
+        block_base.cpp \
+        drawer.cpp \
+        placed_blocks.cpp \
+        blocks/i_block.cpp \
+        blocks/j_block.cpp \
+        blocks/l_block.cpp \
+        blocks/o_block.cpp \
+        blocks/s_block.cpp \
+        blocks/t_block.cpp \
+        blocks/z_block.cpp
 
 HEADERS += \
-        board.h \
-        gamewindow.h \
-        mainwindow.h \
-        piece.h \
-        shapes.h
+        game_window.h \
+        block_base.h \
+        drawer.h \
+        intro_window.h \
+        placed_blocks.h \
+        utilities.h \
+        blocks/i_block.h \
+        blocks/j_block.h \
+        blocks/l_block.h \
+        blocks/o_block.h \
+        blocks/s_block.h \
+        blocks/t_block.h \
+        blocks/z_block.h
 
 FORMS += \
-        gamewindow.ui \
-        mainwindow.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+        game_window.ui \
+        intro_window.ui
 
 RESOURCES += \
     myres.qrc
