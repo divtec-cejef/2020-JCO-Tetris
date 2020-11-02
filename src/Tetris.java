@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -116,6 +116,7 @@ public class Tetris extends JFrame {
 		super("Tetris");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:/git/2020-JCO-Tetris/img/tetrisIcon.png"));
 		setResizable(false);
 		
 		/*
@@ -212,16 +213,13 @@ public class Tetris extends JFrame {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
-				switch(e.getKeyCode()) {
-				
+
 				/*
 				 * Redonne la vitesse de base à la pièce lorsque la touche est relâchée
 				 */
-				case KeyEvent.VK_S:
+				if (e.getKeyCode() == KeyEvent.VK_S) {
 					logicTimer.setCyclesPerSecond(gameSpeed);
 					logicTimer.reset();
-					break;
 				}
 				
 			}
