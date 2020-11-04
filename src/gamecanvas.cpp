@@ -162,9 +162,9 @@ void GameCanvas::initDetailedInfos()
 //! Les répétitions automatiques sont ignorées.
 void GameCanvas::keyPressed(QKeyEvent* pKeyEvent) {
     // Supprimer ce premier test si la répétition de touche doit être signalée.
-    if (pKeyEvent->isAutoRepeat())
-        pKeyEvent->ignore();
-    else {
+//    if (pKeyEvent->isAutoRepeat())
+//        pKeyEvent->ignore();
+//    else {
         m_pGameCore->keyPressed(pKeyEvent->key());
 
         if (pKeyEvent->modifiers()==(Qt::ShiftModifier|Qt::ControlModifier)) {
@@ -181,10 +181,11 @@ void GameCanvas::keyPressed(QKeyEvent* pKeyEvent) {
                 m_tickTimer.setInterval(m_tickTimer.interval()-1);
                 qDebug() << "Tick interval set to " << m_tickTimer.interval();
                 break;
+
             }
         }
         pKeyEvent->accept();
-    }
+    //}
 }
 
 //! Gère le relâchement d'une touche du clavier.

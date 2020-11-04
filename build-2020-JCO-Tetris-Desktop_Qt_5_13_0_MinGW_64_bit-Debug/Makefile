@@ -211,6 +211,7 @@ Makefile: ../src/2020-JCO-Tetris.pro ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mksp
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/qt_config.prf \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/win32-g++/qmake.conf \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/toolchain.prf \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/default_pre.prf \
@@ -388,6 +389,7 @@ Makefile: ../src/2020-JCO-Tetris.pro ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mksp
 ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/qt_config.prf:
 ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/win32-g++/qmake.conf:
 ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/toolchain.prf:
 ../../../Qt/Qt5.13.0/5.13.0/mingw73_64/mkspecs/features/default_pre.prf:

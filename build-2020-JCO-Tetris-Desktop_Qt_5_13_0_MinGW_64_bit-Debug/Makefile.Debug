@@ -1606,6 +1606,29 @@ debug/mainfrm.o: ../src/mainfrm.cpp ../src/mainfrm.h \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qvector2d.h \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qtouchdevice.h \
 		ui_mainfrm.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/QVariant \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/QApplication \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qapplication.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/qeventloop.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qguiapplication.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qinputmethod.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/QVBoxLayout \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qlayout.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qgridlayout.h \
+		../src/gameview.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/QGraphicsView \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qgraphicsview.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qpainter.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qtextoption.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/qpen.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qscrollarea.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qframe.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qgraphicsscene.h \
 		../src/gamecanvas.h \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/QObject \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/QPointer \
@@ -2216,7 +2239,11 @@ debug/gamecore.o: ../src/gamecore.cpp ../src/gamecore.h \
 		../src/resources.h \
 		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/QString \
 		../src/utilities.h \
-		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/QSize
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtCore/QSize \
+		../src/sprite.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/QGraphicsPixmapItem \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtWidgets/qgraphicsitem.h \
+		../../../Qt/Qt5.13.0/5.13.0/mingw73_64/include/QtGui/QPixmap
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gamecore.o ..\src\gamecore.cpp
 
 debug/resources.o: ../src/resources.cpp ../src/resources.h \

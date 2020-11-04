@@ -27,7 +27,7 @@ public:
     {
         if (MainFrm->objectName().isEmpty())
             MainFrm->setObjectName(QString::fromUtf8("MainFrm"));
-        MainFrm->resize(1480, 1025);
+        MainFrm->resize(600, 800);
         verticalLayout = new QVBoxLayout(MainFrm);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
