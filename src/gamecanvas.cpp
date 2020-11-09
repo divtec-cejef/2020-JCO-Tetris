@@ -15,6 +15,7 @@
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
+#include <QBrush>
 #include <QGraphicsTextItem>
 #include <QKeyEvent>
 

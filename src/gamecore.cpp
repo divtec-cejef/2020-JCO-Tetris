@@ -17,10 +17,10 @@
 #include "utilities.h"
 #include "sprite.h"
 
-const int SCENE_WIDTH = 400;
-const int SCENE_HEIGHT = 700;
+const int SCENE_WIDTH = 360; // largeur de la scène
+const int SCENE_HEIGHT = 720; // hauteur de la scène
 const int PLAYER_SPEED = 150; // vitesse de déplacement du joueur en pixels/s
-const int SHIFT_MOVEMENT = 20; // nbre de pixels qui séparent la position initial de l'objet avec sa position finale
+const int TILE_WIDTH = 36; // largeur d'un carreau
 
 //! Initialise le contrôleur de jeu.
 //! \param pGameCanvas  GameCanvas pour lequel cet objet travaille.
@@ -39,17 +39,17 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     
     // Instancier et initialiser les sprite
     // Sprite de la pièce carrée
-    Sprite* SpriteCarre = new Sprite(GameFramework::imagesPath() + "Tetris_carre.png");
+    Sprite* SpriteCarre = new Sprite(GameFramework::imagesPath() + "Tetris_T.png");
     m_pScene->addSpriteToScene(SpriteCarre);
     m_pPieceCarre = SpriteCarre;
 
     // Sprite de la pièce en T
-    Sprite* SpriteT = new Sprite(GameFramework::imagesPath() + "Tetris_T.png");
+    Sprite* SpriteT = new Sprite(GameFramework::imagesPath() + "Tetris_Carre.png");
     m_pScene->addSpriteToScene(SpriteT);
     m_pPieceT = SpriteT;
 
-    SpriteCarre->setPos(m_pScene->width()/2.0, 0);
-    SpriteT->setPos(m_pScene->width()/2.0, 0);
+    SpriteCarre->setPos(m_pScene->width()/2.0 - TILE_WIDTH, 0);
+    SpriteT->setPos(m_pScene->width()/2.0 - TILE_WIDTH, 0);
 
 
     // Démarre le tick pour que les animations qui en dépendent fonctionnent correctement.
@@ -74,19 +74,20 @@ void GameCore::keyPressed(int key) {
     switch(key) {
     // Décale le sprite sur la gauche
     case Qt::Key_Left:
-        if(m_pPieceCarre->left() > 10) {
-            m_pPieceCarre->setX(m_pPieceCarre->x() - SHIFT_MOVEMENT);
+        if(m_pPieceCarre->left() > 20) {
+            m_pPieceCarre->setX(m_pPieceCarre->x() - TILE_WIDTH);
         } break;
 
     // Décale le sprite sur la droite
     case Qt::Key_Right:
-        if(m_pPieceCarre->right() < m_pScene->width()-10) {
-            m_pPieceCarre->setX(m_pPieceCarre->x() + SHIFT_MOVEMENT);
+        if(m_pPieceCarre->right() < m_pScene->width()-20) {
+            m_pPieceCarre->setX(m_pPieceCarre->x() + TILE_WIDTH);
         } break;
 
+    // Décale le sprite vers le bas
     case Qt::Key_Down:
-        if(m_pPieceCarre->bottom() < m_pScene->height()-SHIFT_MOVEMENT) {
-            m_pPieceCarre->setY(m_pPieceCarre->y() + SHIFT_MOVEMENT);
+        if(m_pPieceCarre->bottom() < m_pScene->height()-TILE_WIDTH) {
+            m_pPieceCarre->setY(m_pPieceCarre->y() + TILE_WIDTH);
         }
     }
 

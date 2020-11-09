@@ -265,7 +265,7 @@ void GameScene::init() {
     m_pBackgroundImage = nullptr;
 
     this->setBackgroundBrush(QBrush(Qt::black));
-    //setBackgroundImage(QImage(GameFramework::imagesPath() + "space.jpg"));
+    // setBackgroundImage(QImage(GameFramework::imagesPath() + "space.jpg"));
 
 }
 

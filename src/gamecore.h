@@ -46,9 +46,10 @@ private:
 
     GameCanvas* m_pGameCanvas;
     GameScene* m_pScene;
-    Sprite* m_pPieceCarre;
     Sprite* m_pPieceT;
+    Sprite* m_pPieceCarre;
     int m_playerDirection = 1;
+    int m_gridPanel[10][20];
 
 private slots:
 
