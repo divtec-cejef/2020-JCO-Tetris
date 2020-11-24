@@ -1,58 +1,40 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-01-31T13:38:06
+# Project created by QtCreator 2020-11-24T08:41:31
 #
 #-------------------------------------------------
 
-QT       += core gui svg
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GameFramework
+TARGET = 2020-JCO-Tetris
 TEMPLATE = app
 
-#DEFINES += DEBUG_SPRITE_COUNT
-#DEFINES += DEBUG_BBOX
-#DEFINES += DEBUG_SHAPE
-#DEFINES += DEPLOY # Pour une compilation dans un but de déploiement
+# The following define makes your compiler emit warnings if you use
+# any feature of Qt which has been marked as deprecated (the exact warnings
+# depend on your compiler). Please consult the documentation of the
+# deprecated API in order to know how to port your code away from it.
+DEFINES += QT_DEPRECATED_WARNINGS
 
-SOURCES += main.cpp\
-    keytickhandler.cpp \
-        mainfrm.cpp \
-    gamescene.cpp \
-    player.cpp \
-    randommovetickhandler.cpp \
-    sprite.cpp \
-    gamecore.cpp \
-    resources.cpp \
-    gameview.cpp \
-    utilities.cpp \
-    gamecanvas.cpp \
-    walkingman.cpp \
-    blueball.cpp \
-    spinningpinwheel.cpp \
-    spritetickhandler.cpp \
-    bouncingspritehandler.cpp \
-    manualwalkinghandler.cpp \
-    automaticwalkinghandler.cpp
+# You can also make your code fail to compile if you use deprecated APIs.
+# In order to do so, uncomment the following line.
+# You can also select to disable deprecated APIs only up to a certain version of Qt.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-HEADERS  += mainfrm.h \
-    gamescene.h \
-    keytickhandler.h \
-    player.h \
-    randommovetickhandler.h \
-    sprite.h \
-    gamecore.h \
-    resources.h \
-    gameview.h \
-    utilities.h \
-    gamecanvas.h \
-    walkingman.h \
-    blueball.h \
-    spinningpinwheel.h \
-    spritetickhandler.h \
-    bouncingspritehandler.h \
-    manualwalkinghandler.h \
-    automaticwalkinghandler.h
+CONFIG += c++11
 
-FORMS    += mainfrm.ui
+SOURCES += \
+        main.cpp \
+        mainfrm.cpp
+
+HEADERS += \
+        mainfrm.h
+
+FORMS += \
+        mainfrm.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
