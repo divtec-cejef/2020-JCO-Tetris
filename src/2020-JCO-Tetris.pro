@@ -26,10 +26,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainfrm.cpp
+        mainfrm.cpp \
+        nextpiece.cpp \
+        tetriswidget.cpp
 
 HEADERS += \
-        mainfrm.h
+        mainfrm.h \
+        nextpiece.h \
+        tetriswidget.h
 
 FORMS += \
         mainfrm.ui
