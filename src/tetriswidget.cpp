@@ -49,9 +49,4 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
         x += TILE_SIZE;
         xNextPoint += TILE_SIZE;
     }
-
-
-
-
-
 }
