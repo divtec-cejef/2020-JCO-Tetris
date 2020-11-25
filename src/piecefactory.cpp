@@ -1,7 +1,5 @@
 #include "piecefactory.h"
-#include <list>
-#include <vector>
-#include <iostream>
+#include <QApplication>
 
 /**
  * Constructeur de la PieceFactory
@@ -16,8 +14,6 @@ PieceFactory::PieceFactory()
  * @return La pièce créée
  */
 Piece PieceFactory::CreatePiece() {
-
-    std::srand((unsigned int)std::time(0));
 
     int RandomNumber = std::rand() % 7;
 
