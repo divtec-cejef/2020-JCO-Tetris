@@ -29,16 +29,13 @@ SOURCES += \
         mainfrm.cpp \
         nextpiece.cpp \
         piece.cpp \
-        piecefactory.cpp \
-        tetris.cpp \
         tetriswidget.cpp
 
 HEADERS += \
         mainfrm.h \
         nextpiece.h \
         piece.h \
-        piecefactory.h \
-        tetris.h \
+        shapes.h \
         tetriswidget.h
 
 FORMS += \

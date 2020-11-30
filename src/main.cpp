@@ -1,5 +1,4 @@
 #include "mainfrm.h"
-#include "piecefactory.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
