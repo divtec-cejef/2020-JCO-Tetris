@@ -15,14 +15,9 @@ typedef enum {
 const int BOARD_HEIGHT = 20; // Hauteur de l'aire de jeu
 const int BOARD_WIDTH = 10; // Largeur de l'aire de jeu
 
-const int ORIGIN_X = 0; // L'ordonnée du point de pivot
-const int ORIGIN_Y = 5; // Son abscisse
-
 class TetrisWidget : public QFrame
 {
 public:
-    // Déclaration du tableau représentant l'aire de jeu
-
 
     TetrisWidget(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
@@ -36,9 +31,8 @@ protected:
     void paintEvent(QPaintEvent* pEvent);
 
 private:
+    // Déclaration du tableau représentant l'aire de jeu
     int tbTetris[BOARD_WIDTH][BOARD_HEIGHT];
-
-    bool timer = true;
 
     bool needNextPiece = true;
 
