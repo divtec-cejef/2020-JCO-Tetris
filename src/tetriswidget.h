@@ -1,7 +1,6 @@
 #ifndef TETRISWIDGET_H
 #define TETRISWIDGET_H
 
-#include "piece.h"
 #include <QFrame>
 
 /*
@@ -23,26 +22,25 @@ class TetrisWidget : public QFrame
 {
 public:
     // Déclaration du tableau représentant l'aire de jeu
-    int tbTetris[BOARD_WIDTH][BOARD_HEIGHT];
+
 
     TetrisWidget(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
-    void setCurrentPiece(Piece p);
-    Piece GetCurrentPiece();
-    void drawPiece(Piece p);
-    void clearPiece(Piece p);
-    void newPiece(Piece p);
-    void clear();
+    void addPiece();
+    void downPiece();
+    void startTimer();
+
 
 protected:
+    void keyPressEvent(QKeyEvent *event);
     void paintEvent(QPaintEvent* pEvent);
 
 private:
-    void flood(int i, int j, int px, int py, int k, int o, int value, bool visited[][SIZE]);
-    void floodFill(int i, int j, int px, int py, int k, int o, int value);
+    int tbTetris[BOARD_WIDTH][BOARD_HEIGHT];
 
-    Piece currentPiece; // La pièce qui se trouve sur l'aire de jeu
-    Piece ghostPiece; // La pièce qui représente la position où sera la pièce
+    bool timer = true;
+
+    bool needNextPiece = true;
 
 };
 

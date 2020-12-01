@@ -12,3 +12,8 @@ MainFrm::~MainFrm()
 {
     delete ui;
 }
+
+void MainFrm::on_BT_Start_clicked()
+{
+    ui->GameBox->update();
+}

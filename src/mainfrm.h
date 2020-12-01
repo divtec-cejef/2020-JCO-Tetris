@@ -12,8 +12,11 @@ class MainFrm : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainFrm(QWidget *parent = nullptr);
+    MainFrm(QWidget *parent = nullptr);
     ~MainFrm();
+
+private slots:
+    void on_BT_Start_clicked();
 
 private:
     Ui::MainFrm *ui;

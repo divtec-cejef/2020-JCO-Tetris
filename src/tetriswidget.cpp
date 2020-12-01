@@ -1,6 +1,7 @@
 #include "tetriswidget.h"
 
 #include <QPainter>
+#include <QKeyEvent>
 
 TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, f)
 {
@@ -8,14 +9,21 @@ TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, 
     for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             tbTetris[i][j] = FREE;
+
 }
 
 /**
  * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- * créé les éléments graphique du jeu
+ * Dessine les éléments graphique du jeuEn fonction des valeurs dans le tableau
  */
 void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     QPainter painter(this);
+
+    // Vérifie s'il faut ajouter une nouvelle pièce
+    if(needNextPiece) {
+        addPiece();
+    }
+    downPiece();
 
     // Constantes
     const int WIDTH = 340;
@@ -26,11 +34,11 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     int tilePosX = 34;
     int tilePosY = 34;
 
-    // Création de la pièce Z Gauche
-    painter.fillRect(tilePosX*0, tilePosY*0, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
-    painter.fillRect(tilePosX, tilePosY*0, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
-    painter.fillRect(tilePosX, tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
-    painter.fillRect(tilePosX*2, tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
+    for(int i = 0; i < BOARD_WIDTH; i++)
+        for(int j = 0; j < BOARD_HEIGHT; j++)
+            if(tbTetris[i][j] == FILLED) {
+                painter.fillRect(i*tilePosX, j*tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
+            }
 
     int x = 0;
     int y = TILE_SIZE;
@@ -57,142 +65,121 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Modifie la pièce actuellement en jeu
- * @param p la pièce actuellement en jeu
-*/
-void TetrisWidget::setCurrentPiece(Piece p) {
-    currentPiece = p;
-}
-
-/**
- * Récupère la pièce actuellement en jeu
- * @return la pièce actuellement en jeu
+ * Ajoute une pièce au tableau
  */
-Piece TetrisWidget::GetCurrentPiece() {
-    return currentPiece;
-}
+void TetrisWidget::addPiece() {
 
-/**
- * @param i         Coordonnée à partir de laquelle floodfiller dans l'aire de jeu
- * @param j         Coordonnée à partir de laquelle floodfiller dans l'aire de jeu
- * @param px        Coordonnée de la case à partir de laquelle floodfiller dans la matrice de la pièce
- * @param py        Coordonnée de la case à partir de laquelle floodfiller dans la matrice de la pièce
- * @param k         (kind) type de la pièce
- * @param o         (orientation) orientation de la pièce
- * @param value     valeur avec laquelle remplir l'aire de jeu
- * @param visited   Marque les cases du tableau déjà visitées
- */
-void TetrisWidget::flood(int i, int j, int px, int py, int k, int o, int value, bool visited[][SIZE])
-{
-    if(px < 0 || px >= SIZE || py < 0 || py >= SIZE || visited[px][py] || PIECES[k][o][px][py] == FREE)
-        return;
+    // Choisi un nombre aléatoire entre 0 et 6
+    int randomNumber = std::rand() % 7;
 
-    visited[px][py] = true;
-    tbTetris[j][i] = value; // On remplit la case de la valeur dans l'aire
-
-    flood(i, j - 1, px, py - 1, k, o, value, visited); // On cherche vers le haut
-    flood(i + 1, j, px + 1, py, k, o, value, visited); // On cherche à droite
-    flood(i, j + 1, px, py + 1, k, o, value, visited); // On cherche vers le bas
-    flood(i - 1, j, px - 1, py, k, o, value, visited); // On cherche à gauche
-}
-
-/**
- * Appelle le flood
- */
-void TetrisWidget::floodFill(int i, int j, int px, int py, int k, int o, int value)
-{
-    bool visited[SIZE][SIZE];
-
-    for(int l = 0; l < SIZE; ++l)
-        for(int m = 0; m < SIZE; ++m)
-            visited[l][m] = false;
-
-    flood(i, j, px, py, k, o, value, visited);
-}
-
-/**
- * Dessine une pièce sur l'aire de jeu
- * @param p la pièce à dessiner
- */
-void TetrisWidget::drawPiece(Piece p) {
-
-    // On récupère les coordonnées de la pièce
-    int i = p.getPosX();
-    int j = p.getPosY();
-
-    // On récupère le type et l'orientation de la pièce
-    int k = p.getKind();
-    int o = p.getOrientation();
-
-    switch (k) {
+    // Ajoute au tableau la forme choisie
+    switch (randomNumber) {
+    // I
     case 0:
-        p.setColor(CYAN);
+        tbTetris[5][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[5][2] = FILLED;
+        tbTetris[5][3] = FILLED;
         break;
+    // L
     case 1:
-        p.setColor(BLUE);
+        tbTetris[5][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[5][2] = FILLED;
+        tbTetris[6][2] = FILLED;
         break;
+    // J
     case 2:
-        p.setColor(ORANGE);
+        tbTetris[5][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[5][2] = FILLED;
+        tbTetris[4][2] = FILLED;
         break;
+    // O
     case 3:
-        p.setColor(YELLOW);
+        tbTetris[5][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[6][0] = FILLED;
+        tbTetris[6][1] = FILLED;
         break;
+    // S
     case 4:
-        p.setColor(GREEN);
+        tbTetris[5][0] = FILLED;
+        tbTetris[6][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[4][1] = FILLED;
         break;
+    // Z
     case 5:
-        p.setColor(PURPLE);
+        tbTetris[5][0] = FILLED;
+        tbTetris[4][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[6][1] = FILLED;
         break;
+    // T
     case 6:
-        p.setColor(RED);
+        tbTetris[5][0] = FILLED;
+        tbTetris[5][1] = FILLED;
+        tbTetris[6][1] = FILLED;
+        tbTetris[4][1] = FILLED;
+    }
+
+    needNextPiece = false;
+}
+
+/**
+ * Fait descendre la pièce de 1 case
+ */
+void TetrisWidget::downPiece() {
+    for(int i = BOARD_WIDTH; i > 0; i--)
+        for(int j = BOARD_HEIGHT; j > 0; j--)
+            if(tbTetris[i][j] == FILLED) {
+                tbTetris[i][j] = FREE;
+                tbTetris[i][j+1] = FILLED;
+            }
+}
+
+/**
+ * Définit le timer
+ */
+void TetrisWidget::startTimer() {
+
+}
+
+/**
+ * Gère les événements effectués lors de l'appui sur les touches du clavier
+ * @param event l'événement réalisé
+ */
+void TetrisWidget::keyPressEvent(QKeyEvent *event) {
+
+    switch (event->key()) {
+    case Qt::Key_Left:
+        for(int i = BOARD_WIDTH; i > 0; i--)
+            for(int j = BOARD_HEIGHT; j > 0; j--)
+                if(tbTetris[i][j] == FILLED) {
+                    tbTetris[i][j] = FREE;
+                    tbTetris[i-1][j] = FILLED;
+                }
         break;
-    default:
+    case Qt::Key_Right:
+        for(int i = BOARD_WIDTH; i > 0; i--)
+            for(int j = BOARD_HEIGHT; j > 0; j--)
+                if(tbTetris[i][j] == FILLED) {
+                    tbTetris[i][j] = FREE;
+                    tbTetris[i+1][j] = FILLED;
+                }
+        break;
+    case Qt::Key_Down:
+        for(int i = BOARD_WIDTH; i > 0; i--)
+            for(int j = BOARD_HEIGHT; j > 0; j--)
+                if(tbTetris[i][j] == FILLED) {
+                    tbTetris[i][j] = FREE;
+                    tbTetris[i][j+1] = FILLED;
+                }
+        break;
+    case Qt::Key_Up:
+
         break;
     }
 
-    /* On fait un flood fill à partir du point de pivot de la pièce
-     * et on remplit l'aire de jeu en fonction de la couleur de la pièce
-     */
-    floodFill(i, j, PIVOT_X, PIVOT_Y, k, o, p.getColor());
-}
-
-/**
- * Efface une pièce de l'aire de jeu
- * @param p la pièce à effacer
- */
-void TetrisWidget::clearPiece(Piece p) {
-    int i = p.getPosX();
-    int j = p.getPosY();
-
-    int k = p.getKind();
-    int o = p.getOrientation();
-
-    floodFill(i, j, PIVOT_X, PIVOT_Y, k, o, FREE);
-}
-
-/**
- * Fait apparaître une nouvelle pièce
- * @param p la pièce à faire apparaître
- */
-void TetrisWidget::newPiece(Piece p) {
-
-    // On donne à la pièce les coordonnées de l'origine
-    p.setPosX(ORIGIN_X);
-    p.setPosY(ORIGIN_Y);
-
-    // On dessine la pièce
-    drawPiece(p);
-
-    // On déclare cette pièce comme pièce actuelle de l'aire
-    setCurrentPiece(p);
-}
-
-/**
- * Retire toutes les pièces de l'aire de jeu
- */
-void TetrisWidget::clear() {
-    for(int i = 0; i < BOARD_WIDTH; i++) {
-        for(int j = 0; j < BOARD_HEIGHT; j++)
-            tbTetris[i][j] = FREE;
-    }
 }

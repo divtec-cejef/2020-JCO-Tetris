@@ -145,6 +145,19 @@
     <string>Prochaine Pièce</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="BT_Start">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>290</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
