@@ -24,7 +24,6 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
         addPiece();
     }
     downPiece();
-
     // Constantes
     const int WIDTH = 340;
     const int HEIGHT = 680;
