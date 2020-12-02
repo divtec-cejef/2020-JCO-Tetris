@@ -23,7 +23,8 @@ public:
 
     void addPiece();
     void downPiece();
-    void startTimer();
+    void Timer();
+    void sleep(unsigned milliseconds);
 
 
 protected:
@@ -33,6 +34,8 @@ protected:
 private:
     // Déclaration du tableau représentant l'aire de jeu
     int tbTetris[BOARD_WIDTH][BOARD_HEIGHT];
+
+    bool isRunning;
 
     bool needNextPiece = true;
 

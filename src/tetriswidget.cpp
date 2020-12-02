@@ -2,13 +2,24 @@
 
 #include <QPainter>
 #include <QKeyEvent>
+#include <QTimer>
+#include <thread>
+#include <chrono>
+#include <ctime>
+#include <iostream>
+#include <windows.h>
 
+/**
+ * Constructeur de la zone de jeu
+ */
 TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, f)
 {
     // Initialisation de toutes les cases de l'aire de jeu à FREE
     for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             tbTetris[i][j] = FREE;
+
+
 
 }
 
@@ -131,18 +142,32 @@ void TetrisWidget::addPiece() {
  */
 void TetrisWidget::downPiece() {
     for(int i = BOARD_WIDTH; i > 0; i--)
-        for(int j = BOARD_HEIGHT; j > 0; j--)
+        for(int j = BOARD_HEIGHT; j > 0; j--) {
+
             if(tbTetris[i][j] == FILLED) {
                 tbTetris[i][j] = FREE;
                 tbTetris[i][j+1] = FILLED;
             }
+        }
 }
 
 /**
  * Définit le timer
  */
-void TetrisWidget::startTimer() {
+void TetrisWidget::Timer() {
+    //isRunning = true;
+    //while(isRunning) {
+        //sleep(1000);
+        update();
+    //}
+}
 
+/**
+ * Provoque un arrêt du programme pendant un temps donné
+ * @param milliseconds le nombre de millisecondes
+ */
+void TetrisWidget::sleep(unsigned milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
 /**
