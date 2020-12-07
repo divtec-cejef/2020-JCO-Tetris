@@ -12,6 +12,16 @@ typedef enum {
     FILLED
 } TetrisValue;
 
+/**
+ * Structure qui représente les limites de la pièce
+ */
+struct Border {
+    int ubound;
+    int dbound;
+    int lbound;
+    int rbound;
+};
+
 const int BOARD_HEIGHT = 20; // Hauteur de l'aire de jeu
 const int BOARD_WIDTH = 10; // Largeur de l'aire de jeu
 
@@ -25,6 +35,7 @@ public:
     void downPiece();
     void Timer();
     void sleep(unsigned milliseconds);
+    void getBorder(Border &border);
 
 
 protected:
@@ -32,12 +43,15 @@ protected:
     void paintEvent(QPaintEvent* pEvent);
 
 private:
-    // Déclaration du tableau représentant l'aire de jeu
+    // Déclaration du tableau contenant la pièce en mouvement
     int tbTetris[BOARD_WIDTH][BOARD_HEIGHT];
 
-    bool isRunning;
+    // Déclaration du tableau contenant les pièces déjà placées
+    int tbTetrisFixed[BOARD_WIDTH][BOARD_HEIGHT];
 
+    bool isRunning;
     bool needNextPiece = true;
+    Border currentBorder;
 
 };
 

@@ -16,8 +16,10 @@ TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, 
 {
     // Initialisation de toutes les cases de l'aire de jeu à FREE
     for(int i = 0; i < BOARD_WIDTH; i++)
-        for(int j = 0; j < BOARD_HEIGHT; j++)
+        for(int j = 0; j < BOARD_HEIGHT; j++) {
             tbTetris[i][j] = FREE;
+            tbTetrisFixed[i][j] = FREE;
+        }
 
 
 
@@ -34,7 +36,10 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     if(needNextPiece) {
         addPiece();
     }
+
     downPiece();
+
+
     // Constantes
     const int WIDTH = 340;
     const int HEIGHT = 680;
@@ -45,10 +50,17 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     int tilePosY = 34;
 
     for(int i = 0; i < BOARD_WIDTH; i++)
-        for(int j = 0; j < BOARD_HEIGHT; j++)
+        for(int j = 0; j < BOARD_HEIGHT; j++) {
             if(tbTetris[i][j] == FILLED) {
                 painter.fillRect(i*tilePosX, j*tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
             }
+
+            if(tbTetrisFixed[i][j] == FILLED) {
+                painter.fillRect(i*tilePosX, j*tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
+            }
+        }
+
+
 
     int x = 0;
     int y = TILE_SIZE;
@@ -132,9 +144,11 @@ void TetrisWidget::addPiece() {
         tbTetris[5][1] = FILLED;
         tbTetris[6][1] = FILLED;
         tbTetris[4][1] = FILLED;
+        break;
     }
 
     needNextPiece = false;
+    getBorder(currentBorder);
 }
 
 /**
@@ -143,12 +157,35 @@ void TetrisWidget::addPiece() {
 void TetrisWidget::downPiece() {
     for(int i = BOARD_WIDTH; i > 0; i--)
         for(int j = BOARD_HEIGHT; j > 0; j--) {
+            if(currentBorder.dbound == BOARD_HEIGHT-1) {
+                for(int i = BOARD_WIDTH; i > 0; i--)
+                    for(int j = BOARD_HEIGHT; j > 0; j--)
+                        if(tbTetris[i][j] == FILLED) {
+                            tbTetrisFixed[i][j] = FILLED;
+                            tbTetris[i][j] = FREE;
+                        }
 
-            if(tbTetris[i][j] == FILLED) {
+            } else if(tbTetris[i][j] == FILLED) {
                 tbTetris[i][j] = FREE;
                 tbTetris[i][j+1] = FILLED;
             }
         }
+    currentBorder.dbound++;
+}
+
+/**
+ * Définit les bordures des pièces
+ * @param border strucutre des bordures
+ */
+void TetrisWidget::getBorder(Border &border) {
+
+    for(int i = 0; i < BOARD_WIDTH; i++)
+        for(int j = 0; j < BOARD_HEIGHT; j++)
+            if(tbTetris[i][j] == FILLED) {
+                border.dbound = j;
+                break;
+            }
+
 }
 
 /**
