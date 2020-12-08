@@ -2,6 +2,7 @@
 #define TETRISWIDGET_H
 
 #include <QFrame>
+#include <QTimer>
 
 /*
  * FREE : indique que le point du tableau est vide
@@ -33,14 +34,16 @@ public:
 
     void addPiece();
     void downPiece();
-    void Timer();
-    void sleep(unsigned milliseconds);
     void getBorder(Border &border);
+    void startTimer();
 
 
 protected:
     void keyPressEvent(QKeyEvent *event);
-    void paintEvent(QPaintEvent* pEvent);
+    void paintEvent(QPaintEvent *pEvent);
+
+public slots:
+    void initTimer();
 
 private:
     // Déclaration du tableau contenant la pièce en mouvement
@@ -52,6 +55,7 @@ private:
     bool isRunning;
     bool needNextPiece = true;
     Border currentBorder;
+    QTimer *timer;
 
 };
 

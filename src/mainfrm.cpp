@@ -15,5 +15,5 @@ MainFrm::~MainFrm()
 
 void MainFrm::on_BT_Start_clicked()
 {
-    ui->GameBox->Timer();
+    ui->GameBox->initTimer();
 }

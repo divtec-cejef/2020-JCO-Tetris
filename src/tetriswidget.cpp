@@ -3,11 +3,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QTimer>
-#include <thread>
-#include <chrono>
-#include <ctime>
-#include <iostream>
-#include <windows.h>
+#include <QDebug>
 
 /**
  * Constructeur de la zone de jeu
@@ -20,9 +16,6 @@ TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, 
             tbTetris[i][j] = FREE;
             tbTetrisFixed[i][j] = FREE;
         }
-
-
-
 }
 
 /**
@@ -31,14 +24,6 @@ TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, 
  */
 void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     QPainter painter(this);
-
-    // Vérifie s'il faut ajouter une nouvelle pièce
-    if(needNextPiece) {
-        addPiece();
-    }
-
-    downPiece();
-
 
     // Constantes
     const int WIDTH = 340;
@@ -105,10 +90,10 @@ void TetrisWidget::addPiece() {
         break;
     // L
     case 1:
-        tbTetris[5][0] = FILLED;
-        tbTetris[5][1] = FILLED;
+        tbTetris[4][0] = FILLED;
+        tbTetris[4][1] = FILLED;
+        tbTetris[4][2] = FILLED;
         tbTetris[5][2] = FILLED;
-        tbTetris[6][2] = FILLED;
         break;
     // J
     case 2:
@@ -121,8 +106,8 @@ void TetrisWidget::addPiece() {
     case 3:
         tbTetris[5][0] = FILLED;
         tbTetris[5][1] = FILLED;
-        tbTetris[6][0] = FILLED;
-        tbTetris[6][1] = FILLED;
+        tbTetris[4][0] = FILLED;
+        tbTetris[4][1] = FILLED;
         break;
     // S
     case 4:
@@ -152,7 +137,7 @@ void TetrisWidget::addPiece() {
 }
 
 /**
- * Fait descendre la pièce de 1 case
+ * Fait descendre la pièce de 1 case jusqu'à ce qu'elle touche le fond
  */
 void TetrisWidget::downPiece() {
     for(int i = BOARD_WIDTH; i > 0; i--)
@@ -179,32 +164,42 @@ void TetrisWidget::downPiece() {
  */
 void TetrisWidget::getBorder(Border &border) {
 
+    // Permet de définir le carreau le plus bas de la pièce
+    int oldPosY = 0;
     for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             if(tbTetris[i][j] == FILLED) {
-                border.dbound = j;
-                break;
+
+                if(oldPosY <= j) {
+                    border.dbound = j;
+                }
+                oldPosY = j;
             }
 
+
+
 }
 
 /**
- * Définit le timer
+ * Lance le timer
  */
-void TetrisWidget::Timer() {
-    //isRunning = true;
-    //while(isRunning) {
-        //sleep(1000);
-        update();
-    //}
+void TetrisWidget::startTimer() {
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(initTimer()));
+    timer->start();
 }
 
 /**
- * Provoque un arrêt du programme pendant un temps donné
- * @param milliseconds le nombre de millisecondes
+ * Gère le code à exécuter dans le timer
  */
-void TetrisWidget::sleep(unsigned milliseconds) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+void TetrisWidget::initTimer() {
+    update();
+    downPiece();
+
+    // Vérifie s'il faut ajouter une nouvelle pièce
+    if(needNextPiece) {
+        addPiece();
+    }
 }
 
 /**
