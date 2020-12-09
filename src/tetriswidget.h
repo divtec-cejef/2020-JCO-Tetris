@@ -28,6 +28,7 @@ const int BOARD_WIDTH = 10; // Largeur de l'aire de jeu
 
 class TetrisWidget : public QFrame
 {
+    Q_OBJECT
 public:
 
     TetrisWidget(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
@@ -54,6 +55,7 @@ private:
 
     bool isRunning;
     bool needNextPiece = true;
+    bool isCollide;
     Border currentBorder;
     QTimer *timer;
 
