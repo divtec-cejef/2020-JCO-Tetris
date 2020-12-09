@@ -20,10 +20,10 @@ void NextPiece::paintEvent(QPaintEvent* pEvent) {
     const int tilePosY = 34;
 
     // Création de la prochaine pièce
-    painter.fillRect(tilePosX*2, tilePosY*0, TILE_SIZE, TILE_SIZE, QBrush(Qt::blue));
-    painter.fillRect(tilePosX*2, tilePosY*1, TILE_SIZE, TILE_SIZE, QBrush(Qt::blue));
-    painter.fillRect(tilePosX*2, tilePosY*2, TILE_SIZE, TILE_SIZE, QBrush(Qt::blue));
-    painter.fillRect(tilePosX*2, tilePosY*3, TILE_SIZE, TILE_SIZE, QBrush(Qt::blue));
+    painter.fillRect(tilePosX*2, tilePosY*0, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
+    painter.fillRect(tilePosX*2, tilePosY*1, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
+    painter.fillRect(tilePosX*2, tilePosY*2, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
+    painter.fillRect(tilePosX*2, tilePosY*3, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
 
     int x = 0;
     int y = TILE_SIZE;
@@ -46,5 +46,7 @@ void NextPiece::paintEvent(QPaintEvent* pEvent) {
         x += TILE_SIZE;
         xNextPoint += TILE_SIZE;
     }
+
+    QFrame::paintEvent(pEvent);
 
 }

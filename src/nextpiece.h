@@ -5,6 +5,7 @@
 
 class NextPiece : public QFrame
 {
+
 public:
     NextPiece(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 

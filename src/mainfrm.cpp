@@ -13,7 +13,10 @@ MainFrm::~MainFrm()
     delete ui;
 }
 
+/**
+ * Lance le jeu au clic du bouton
+ */
 void MainFrm::on_BT_Start_clicked()
 {
-    ui->GameBox->initTimer();
+    ui->GameBox->startTimer();
 }
