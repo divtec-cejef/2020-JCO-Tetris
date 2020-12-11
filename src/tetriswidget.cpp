@@ -163,6 +163,7 @@ void TetrisWidget::downPiece() {
                             tbTetris[i][j] = FREE;
                         }
                 needNextPiece = true;
+                return;
 
             } else if(tbTetris[i][j] == FILLED) {
 
@@ -178,6 +179,7 @@ void TetrisWidget::downPiece() {
                             }
                     needNextPiece = true;
                     isCollide = false;
+                    return;
 
                 // Descend la pièce si aucune pièce ne se trouve sous elle
                 } else if(!isCollide) {
