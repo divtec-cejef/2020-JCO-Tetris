@@ -144,20 +144,20 @@ void TetrisWidget::addPiece() {
 void TetrisWidget::downPiece() {
 
     // Vérifie si un des carreaux ne peut pas aller plus bas
-    for(int i = BOARD_WIDTH; i >= 0; i--)
-        for(int j = BOARD_HEIGHT; j > 0; j--)
+    for(int i = BOARD_WIDTH-1; i >= 0; i--)
+        for(int j = BOARD_HEIGHT; j >= 0; j--)
             if(tbTetris[i][j] == FILLED && tbTetrisFixed[i][j+1] == FILLED) {
                 isCollide = true;
             }
 
     // Parcours le tableau
     for(int i = BOARD_WIDTH; i >= 0; i--)
-        for(int j = BOARD_HEIGHT; j > 0; j--) {
+        for(int j = BOARD_HEIGHT; j >= 0; j--) {
 
             // Stop la pièce si elle arrive tout en bas du tableau
             if(currentBorder.dbound == BOARD_HEIGHT-1) {
-                for(int i = BOARD_WIDTH; i >= 0; i--)
-                    for(int j = BOARD_HEIGHT; j > 0; j--)
+                for(int i = BOARD_WIDTH-1; i >= 0; i--)
+                    for(int j = BOARD_HEIGHT; j >= 0; j--)
                         if(tbTetris[i][j] == FILLED) {
                             tbTetrisFixed[i][j] = FILLED;
                             tbTetris[i][j] = FREE;
@@ -169,10 +169,8 @@ void TetrisWidget::downPiece() {
 
                 // Stop la pièce si une pièce se trouve sous elle
                 if(tbTetrisFixed[i][j+1] == FILLED) {
-
-
-                    for(int i = BOARD_WIDTH; i >= 0; i--)
-                        for(int j = BOARD_HEIGHT; j > 0; j--)
+                    for(int i = BOARD_WIDTH-1; i >= 0; i--)
+                        for(int j = BOARD_HEIGHT; j >= 0; j--)
                             if(tbTetris[i][j] == FILLED) {
                                 tbTetrisFixed[i][j] = FILLED;
                                 tbTetris[i][j] = FREE;
@@ -199,7 +197,7 @@ void TetrisWidget::getBorder(Border &border) {
 
     // Permet de définir le carreau le plus bas de la pièce
     int oldPosY = 0;
-    for(int i = 0; i < BOARD_WIDTH; i++)
+    for(int i = 0; i < BOARD_WIDTH-1; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             if(tbTetris[i][j] == FILLED) {
 
@@ -208,9 +206,6 @@ void TetrisWidget::getBorder(Border &border) {
                 }
                 oldPosY = j;
             }
-
-
-
 }
 
 /**
