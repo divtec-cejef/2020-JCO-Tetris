@@ -37,6 +37,7 @@ public:
     void getBorder(Border &border);
     void startTimer();
     void changeTable();
+    void blockRotate();
 
 
 protected:
