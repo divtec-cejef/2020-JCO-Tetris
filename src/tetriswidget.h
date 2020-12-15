@@ -17,10 +17,9 @@ typedef enum {
  * Structure qui représente les limites de la pièce
  */
 struct Border {
-    int ubound;
-    int dbound;
-    int lbound;
-    int rbound;
+    int dbound; // Bordure inférieure de la pièce
+    int lbound; // Bordure gauche de la pièce
+    int rbound; // Bordure droite de la pièce
 };
 
 const int BOARD_HEIGHT = 20; // Hauteur de l'aire de jeu
@@ -37,6 +36,7 @@ public:
     void downPiece();
     void getBorder(Border &border);
     void startTimer();
+    void changeTable();
 
 
 protected:

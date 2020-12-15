@@ -16,6 +16,8 @@ TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, 
             tbTetris[i][j] = FREE;
             tbTetrisFixed[i][j] = FREE;
         }
+
+    // Force le focus sur la zone de jeu
     setFocusPolicy(Qt::StrongFocus);
 }
 
@@ -31,21 +33,23 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     const int HEIGHT = 680;
     const int TILE_SIZE = 34;
 
+
     // Variables
     int tilePosX = 34;
     int tilePosY = 34;
 
+    // Parcours le tableau pour peindre les pièces
     for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++) {
+            // Peint la pièce mobile en rouge
             if(tbTetris[i][j] == FILLED) {
                 painter.fillRect(i*tilePosX, j*tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
             }
-
+            // Peint les pièces fixes en vert
             if(tbTetrisFixed[i][j] == FILLED) {
                 painter.fillRect(i*tilePosX, j*tilePosY, TILE_SIZE, TILE_SIZE, QBrush(Qt::green));
             }
         }
-
 
 
     int x = 0;
@@ -144,6 +148,7 @@ void TetrisWidget::addPiece() {
 void TetrisWidget::downPiece() {
 
     // Vérifie si un des carreaux ne peut pas aller plus bas
+    // car un autre carreau se trouve en dessous de lui
     for(int i = BOARD_WIDTH-1; i >= 0; i--)
         for(int j = BOARD_HEIGHT; j >= 0; j--)
             if(tbTetris[i][j] == FILLED && tbTetrisFixed[i][j+1] == FILLED) {
@@ -156,26 +161,14 @@ void TetrisWidget::downPiece() {
 
             // Stop la pièce si elle arrive tout en bas du tableau
             if(currentBorder.dbound == BOARD_HEIGHT-1) {
-                for(int i = BOARD_WIDTH-1; i >= 0; i--)
-                    for(int j = BOARD_HEIGHT; j >= 0; j--)
-                        if(tbTetris[i][j] == FILLED) {
-                            tbTetrisFixed[i][j] = FILLED;
-                            tbTetris[i][j] = FREE;
-                        }
-                needNextPiece = true;
+                changeTable();
                 return;
 
             } else if(tbTetris[i][j] == FILLED) {
 
                 // Stop la pièce si une pièce se trouve sous elle
                 if(tbTetrisFixed[i][j+1] == FILLED) {
-                    for(int i = BOARD_WIDTH-1; i >= 0; i--)
-                        for(int j = BOARD_HEIGHT; j >= 0; j--)
-                            if(tbTetris[i][j] == FILLED) {
-                                tbTetrisFixed[i][j] = FILLED;
-                                tbTetris[i][j] = FREE;
-                            }
-                    needNextPiece = true;
+                    changeTable();
                     isCollide = false;
                     return;
 
@@ -190,22 +183,55 @@ void TetrisWidget::downPiece() {
 }
 
 /**
+ * Transfère tous les carreaux remplis du tableau de la pièce mobile
+ * Dans le tableau des pièces fixes
+ */
+void TetrisWidget::changeTable() {
+    for(int i = BOARD_WIDTH-1; i >= 0; i--)
+        for(int j = BOARD_HEIGHT; j >= 0; j--)
+            if(tbTetris[i][j] == FILLED) {
+                tbTetrisFixed[i][j] = FILLED;
+                tbTetris[i][j] = FREE;
+            }
+    needNextPiece = true;
+}
+
+/**
  * Définit les bordures des pièces
  * @param border strucutre des bordures
  */
 void TetrisWidget::getBorder(Border &border) {
 
-    // Permet de définir le carreau le plus bas de la pièce
+    // Permet de définir le carreau le plus bas et le plus à droite de la pièce
     int oldPosY = 0;
     for(int i = 0; i < BOARD_WIDTH-1; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             if(tbTetris[i][j] == FILLED) {
 
+                // Carreau le plus à droite de la pièce
+                border.rbound = i;
+
+                // Carreau le plus bas de la pièce
                 if(oldPosY <= j) {
                     border.dbound = j;
                 }
                 oldPosY = j;
             }
+
+    // Permet de définir le carreau le plus à gauche de la pièce
+    for (int i = BOARD_WIDTH; i >= 0; i--)
+        for(int j = 0; j < BOARD_HEIGHT; j++)
+            if(tbTetris[i][j] == FILLED) {
+                border.lbound = i;
+            }
+
+}
+
+/**
+ * Provoque la rotation de la pièce de 90°
+ */
+void TetrisWidget::blockRotate() {
+
 }
 
 /**
@@ -238,37 +264,49 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
 
     switch (event->key()) {
     // Flèche de gauche
-    // Aller à gauche
+    // Aller à gauche si n'est pas à la limite gauche
     case Qt::Key_Left:
-        for(int i = 0; i < BOARD_WIDTH; i++)
-            for(int j = BOARD_HEIGHT; j > 0; j--)
-                if(tbTetris[i][j] == FILLED) {
-                    tbTetris[i][j] = FREE;
-                    tbTetris[i-1][j] = FILLED;
-                }
-        update();
+        if(currentBorder.lbound != 0) {
+            for(int i = 0; i < BOARD_WIDTH; i++)
+                for(int j = BOARD_HEIGHT; j > 0; j--)
+                    if(tbTetris[i][j] == FILLED) {
+                        tbTetris[i][j] = FREE;
+                        tbTetris[i-1][j] = FILLED;
+                    }
+            update();
+            currentBorder.lbound--;
+            currentBorder.rbound--;
+        }
         break;
+
     // Flèche de droite
-    // Aller à droite
+    // Aller à droite si n'est pas à la limite droite
     case Qt::Key_Right:
-        for(int i = BOARD_WIDTH; i >= 0; i--)
-            for(int j = BOARD_HEIGHT; j > 0; j--)
-                if(tbTetris[i][j] == FILLED) {
-                    tbTetris[i][j] = FREE;
-                    tbTetris[i+1][j] = FILLED;
-                }
-        update();
+        if(currentBorder.rbound < BOARD_WIDTH-1) {
+            for(int i = BOARD_WIDTH; i >= 0; i--)
+                for(int j = BOARD_HEIGHT; j > 0; j--)
+                    if(tbTetris[i][j] == FILLED) {
+                        tbTetris[i][j] = FREE;
+                        tbTetris[i+1][j] = FILLED;
+                    }
+            update();
+            currentBorder.lbound++;
+            currentBorder.rbound++;
+        }
+
         break;
+
     // Flèche du bas
     // Faire descendre la pièce
     case Qt::Key_Down:
         downPiece();
         update();
         break;
+
     // Flèche du haut
     // Rotation
     case Qt::Key_Up:
-
+        blockRotate();
         update();
         break;
 
@@ -279,5 +317,4 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
         update();
         break;
     }
-
 }
