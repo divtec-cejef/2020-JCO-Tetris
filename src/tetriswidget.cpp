@@ -92,6 +92,8 @@ void TetrisWidget::addPiece() {
         tbTetris[5][1] = FILLED;
         tbTetris[5][2] = FILLED;
         tbTetris[5][3] = FILLED;
+
+        shape = I;
         break;
     // L
     case 1:
@@ -99,6 +101,8 @@ void TetrisWidget::addPiece() {
         tbTetris[4][1] = FILLED;
         tbTetris[4][2] = FILLED;
         tbTetris[5][2] = FILLED;
+
+        shape = L;
         break;
     // J
     case 2:
@@ -106,6 +110,8 @@ void TetrisWidget::addPiece() {
         tbTetris[5][1] = FILLED;
         tbTetris[5][2] = FILLED;
         tbTetris[4][2] = FILLED;
+
+        shape = J;
         break;
     // O
     case 3:
@@ -113,6 +119,8 @@ void TetrisWidget::addPiece() {
         tbTetris[5][1] = FILLED;
         tbTetris[4][0] = FILLED;
         tbTetris[4][1] = FILLED;
+
+        shape = O;
         break;
     // S
     case 4:
@@ -120,6 +128,8 @@ void TetrisWidget::addPiece() {
         tbTetris[6][0] = FILLED;
         tbTetris[5][1] = FILLED;
         tbTetris[4][1] = FILLED;
+
+        shape = S;
         break;
     // Z
     case 5:
@@ -127,6 +137,8 @@ void TetrisWidget::addPiece() {
         tbTetris[4][0] = FILLED;
         tbTetris[5][1] = FILLED;
         tbTetris[6][1] = FILLED;
+
+        shape = Z;
         break;
     // T
     case 6:
@@ -134,9 +146,14 @@ void TetrisWidget::addPiece() {
         tbTetris[5][1] = FILLED;
         tbTetris[6][1] = FILLED;
         tbTetris[4][1] = FILLED;
+
+        shape = T;
         break;
     }
 
+    posX = 5;
+    posY = 0;
+    rotation = ROTATION_0;
     needNextPiece = false;
     getBorder(currentBorder);
 }
@@ -150,14 +167,14 @@ void TetrisWidget::downPiece() {
     // Vérifie si un des carreaux ne peut pas aller plus bas
     // car un autre carreau se trouve en dessous de lui
     for(int i = BOARD_WIDTH-1; i >= 0; i--)
-        for(int j = BOARD_HEIGHT; j >= 0; j--)
+        for(int j = BOARD_HEIGHT-1; j >= 0; j--)
             if(tbTetris[i][j] == FILLED && tbTetrisFixed[i][j+1] == FILLED) {
                 isCollide = true;
             }
 
     // Parcours le tableau
-    for(int i = BOARD_WIDTH; i >= 0; i--)
-        for(int j = BOARD_HEIGHT; j >= 0; j--) {
+    for(int i = BOARD_WIDTH-1; i >= 0; i--)
+        for(int j = BOARD_HEIGHT-1; j >= 0; j--) {
 
             // Stop la pièce si elle arrive tout en bas du tableau
             if(currentBorder.dbound == BOARD_HEIGHT-1) {
@@ -176,6 +193,7 @@ void TetrisWidget::downPiece() {
                 } else if(!isCollide) {
                     tbTetris[i][j] = FREE;
                     tbTetris[i][j+1] = FILLED;
+                    posY++;
                 }
             }
         }
@@ -188,7 +206,7 @@ void TetrisWidget::downPiece() {
  */
 void TetrisWidget::changeTable() {
     for(int i = BOARD_WIDTH-1; i >= 0; i--)
-        for(int j = BOARD_HEIGHT; j >= 0; j--)
+        for(int j = BOARD_HEIGHT-1; j >= 0; j--)
             if(tbTetris[i][j] == FILLED) {
                 tbTetrisFixed[i][j] = FILLED;
                 tbTetris[i][j] = FREE;
@@ -204,7 +222,7 @@ void TetrisWidget::getBorder(Border &border) {
 
     // Permet de définir le carreau le plus bas et le plus à droite de la pièce
     int oldPosY = 0;
-    for(int i = 0; i < BOARD_WIDTH-1; i++)
+    for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             if(tbTetris[i][j] == FILLED) {
 
@@ -219,7 +237,7 @@ void TetrisWidget::getBorder(Border &border) {
             }
 
     // Permet de définir le carreau le plus à gauche de la pièce
-    for (int i = BOARD_WIDTH; i >= 0; i--)
+    for (int i = BOARD_WIDTH-1; i >= 0; i--)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             if(tbTetris[i][j] == FILLED) {
                 border.lbound = i;
@@ -232,6 +250,183 @@ void TetrisWidget::getBorder(Border &border) {
  */
 void TetrisWidget::blockRotate() {
 
+    // Effectue la rotation en fonction de
+    // la forme actuellement en mouvement
+    switch (shape) {
+    case O:
+        break;
+
+    case I:
+        // Gère les 4 orrientation de la pièce I
+        switch(rotation) {
+        case ROTATION_0:
+            tbTetris[posX-1][posY+2] = FREE;
+            tbTetris[posX+1][posY+2] = FREE;
+            tbTetris[posX+2][posY+2] = FREE;
+
+            tbTetris[posX][posY] = FILLED;
+            tbTetris[posX][posY+1] = FILLED;
+            tbTetris[posX][posY+2] = FILLED;
+            tbTetris[posX][posY+3] = FILLED;
+
+            rotation = ROTATION_90;
+            break;
+
+        case ROTATION_90:
+            tbTetris[posX][posY] = FREE;
+            tbTetris[posX][posY+1] = FREE;
+            tbTetris[posX][posY+3] = FREE;
+
+            tbTetris[posX-1][posY+2] = FILLED;
+            tbTetris[posX][posY+2] = FILLED;
+            tbTetris[posX+1][posY+2] = FILLED;
+            tbTetris[posX+2][posY+2] = FILLED;
+
+            rotation = ROTATION_180;
+            break;
+
+        case ROTATION_180:
+            tbTetris[posX-1][posY+2] = FREE;
+            tbTetris[posX+1][posY+2] = FREE;
+            tbTetris[posX+2][posY+2] = FREE;
+
+            tbTetris[posX][posY] = FILLED;
+            tbTetris[posX][posY+1] = FILLED;
+            tbTetris[posX][posY+2] = FILLED;
+            tbTetris[posX][posY+3] = FILLED;
+
+            rotation = ROTATION_270;
+            break;
+
+        case ROTATION_270:
+            tbTetris[posX][posY] = FREE;
+            tbTetris[posX][posY+1] = FREE;
+            tbTetris[posX][posY+3] = FREE;
+
+            tbTetris[posX-1][posY+2] = FILLED;
+            tbTetris[posX][posY+2] = FILLED;
+            tbTetris[posX+1][posY+2] = FILLED;
+            tbTetris[posX+2][posY+2] = FILLED;
+
+            rotation = ROTATION_0;
+            break;
+        }
+
+        break;
+
+    case J:
+        // Gère les 4 orrientation de la pièce J
+        switch(rotation) {
+        case ROTATION_0:
+
+            break;
+
+        case ROTATION_90:
+
+            break;
+
+        case ROTATION_180:
+
+            break;
+
+        case ROTATION_270:
+
+            break;
+        }
+
+        break;
+
+    case L:
+        // Gère les 4 orrientation de la pièce L
+        switch(rotation) {
+        case ROTATION_0:
+
+            break;
+
+        case ROTATION_90:
+
+            break;
+
+        case ROTATION_180:
+
+            break;
+
+        case ROTATION_270:
+
+            break;
+        }
+
+        break;
+
+    case T:
+        // Gère les 4 orrientation de la pièce T
+        switch(rotation) {
+        case ROTATION_0:
+
+            break;
+
+        case ROTATION_90:
+
+            break;
+
+        case ROTATION_180:
+
+            break;
+
+        case ROTATION_270:
+
+            break;
+        }
+
+        break;
+
+    case S:
+        // Gère les 4 orrientation de la pièce S
+        switch(rotation) {
+        case ROTATION_0:
+
+            break;
+
+        case ROTATION_90:
+
+            break;
+
+        case ROTATION_180:
+
+            break;
+
+        case ROTATION_270:
+
+            break;
+        }
+
+        break;
+
+    case Z:
+        // Gère les 4 orrientation de la pièce Z
+        switch(rotation) {
+        case ROTATION_0:
+
+            break;
+
+        case ROTATION_90:
+
+            break;
+
+        case ROTATION_180:
+
+            break;
+
+        case ROTATION_270:
+
+            break;
+        }
+
+        break;
+
+    case NO_SHAPE:
+        break;
+    }
 }
 
 /**
@@ -268,10 +463,11 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Left:
         if(currentBorder.lbound != 0) {
             for(int i = 0; i < BOARD_WIDTH; i++)
-                for(int j = BOARD_HEIGHT; j > 0; j--)
+                for(int j = BOARD_HEIGHT-1; j >= 0; j--)
                     if(tbTetris[i][j] == FILLED) {
                         tbTetris[i][j] = FREE;
                         tbTetris[i-1][j] = FILLED;
+                        posX--;
                     }
             update();
             currentBorder.lbound--;
@@ -283,11 +479,12 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
     // Aller à droite si n'est pas à la limite droite
     case Qt::Key_Right:
         if(currentBorder.rbound < BOARD_WIDTH-1) {
-            for(int i = BOARD_WIDTH; i >= 0; i--)
-                for(int j = BOARD_HEIGHT; j > 0; j--)
+            for(int i = BOARD_WIDTH-1; i >= 0; i--)
+                for(int j = BOARD_HEIGHT-1; j >= 0; j--)
                     if(tbTetris[i][j] == FILLED) {
                         tbTetris[i][j] = FREE;
                         tbTetris[i+1][j] = FILLED;
+                        posX++;
                     }
             update();
             currentBorder.lbound++;
