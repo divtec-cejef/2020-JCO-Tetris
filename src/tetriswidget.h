@@ -1,3 +1,7 @@
+// 2020-JCO-Tetris
+// Auteur : Membrez Matteo
+// Date de la dernière modification : 22.12.20
+
 #ifndef TETRISWIDGET_H
 #define TETRISWIDGET_H
 
@@ -69,10 +73,10 @@ public:
     void addPiece();
     void downPiece();
     void getBorder(Border &border);
-    void startTimer();
+    void startTimer(int seconds);
     void changeTable();
     void blockRotate();
-
+    void clearRow();
 
 protected:
     void keyPressEvent(QKeyEvent *event);

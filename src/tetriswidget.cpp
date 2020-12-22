@@ -1,9 +1,14 @@
+// 2020-JCO-Tetris
+// Auteur : Membrez Matteo
+// Date de la dernière modification : 22.12.20
+
 #include "tetriswidget.h"
 
 #include <QPainter>
 #include <QKeyEvent>
 #include <QTimer>
 #include <QDebug>
+
 
 /**
  * Constructeur de la zone de jeu
@@ -81,10 +86,10 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
  */
 void TetrisWidget::addPiece() {
 
-    // Choisi un nombre aléatoire entre 0 et 6
+    // Choisi un nombre aléatoire entre 0 et 6 compris
     int randomNumber = std::rand() % 7;
 
-    // Ajoute au tableau la forme choisie
+    // Ajoute au tableau la pièce choisie aléatoirement
     switch (randomNumber) {
     // I
     case 0:
@@ -212,6 +217,7 @@ void TetrisWidget::changeTable() {
                 tbTetris[i][j] = FREE;
             }
     needNextPiece = true;
+    clearRow();
 }
 
 /**
@@ -242,6 +248,31 @@ void TetrisWidget::getBorder(Border &border) {
             if(tbTetris[i][j] == FILLED) {
                 border.lbound = i;
             }
+
+}
+
+/**
+ * Supprime les lignes remplies
+ */
+void TetrisWidget::clearRow() {
+
+    const int ROW_FILLED = 10;
+
+    // Parcours le tableau et supprime les lignes remplies
+    for(int j = 0; j < BOARD_HEIGHT; j++) {
+        int count = 0;
+        for(int i = 0; i < BOARD_WIDTH; i++)
+            if(tbTetrisFixed[i][j] == FILLED) {
+                count++;
+            }
+
+        if(count == ROW_FILLED) {
+            for(int i = 0; i < BOARD_WIDTH; i++)
+                tbTetrisFixed[i][j] = FREE;
+
+
+        }
+    }
 
 }
 
@@ -552,6 +583,8 @@ void TetrisWidget::blockRotate() {
 
         break;
 
+    // Afin d'éviter des bug
+    // Ne devrait jamais s'exécuter
     case NO_SHAPE:
         break;
     }
@@ -559,11 +592,12 @@ void TetrisWidget::blockRotate() {
 
 /**
  * Lance le timer
+ * @param seconds le nombre de secondes entre deux exécutions du timer
  */
-void TetrisWidget::startTimer() {
+void TetrisWidget::startTimer(int seconds) {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(initTimer()));
-    timer->start(1000);
+    timer->start(seconds);
 }
 
 /**

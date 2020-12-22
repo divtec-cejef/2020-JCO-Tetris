@@ -1,3 +1,7 @@
+// 2020-JCO-Tetris
+// Auteur : Membrez Matteo
+// Date de la dernière modification : 22.12.20
+
 #include "mainfrm.h"
 #include <QApplication>
 #include <QTimer>
