@@ -77,7 +77,7 @@ void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Ajoute une pièce au tableau
+ * Ajoute aléatoirement une pièce au tableau
  */
 void TetrisWidget::addPiece() {
 
@@ -269,7 +269,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+3] = FILLED;
 
             rotation = ROTATION_90;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_90:
@@ -282,7 +281,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX+2][posY+2] = FILLED;
 
             rotation = ROTATION_180;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_180:
@@ -295,7 +293,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+3] = FILLED;
 
             rotation = ROTATION_270;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_270:
@@ -308,7 +305,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX+2][posY+2] = FILLED;
 
             rotation = ROTATION_0;
-            getBorder(currentBorder);
             break;
         }
 
@@ -328,7 +324,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX-1][posY+2] = FILLED;
 
             rotation = ROTATION_90;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_90:
@@ -341,7 +336,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX+1][posY+1] = FILLED;
 
             rotation = ROTATION_180;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_180:
@@ -354,7 +348,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+2] = FILLED;
 
             rotation = ROTATION_270;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_270:
@@ -367,7 +360,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX+1][posY+2] = FILLED;
 
             rotation = ROTATION_0;
-            getBorder(currentBorder);
             break;
         }
 
@@ -386,7 +378,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+2] = FILLED;
 
             rotation = ROTATION_90;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_90:
@@ -399,7 +390,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+1] = FILLED;
 
             rotation = ROTATION_180;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_180:
@@ -412,7 +402,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX-1][posY+2] = FILLED;
 
             rotation = ROTATION_270;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_270:
@@ -425,7 +414,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY] = FILLED;
 
             rotation = ROTATION_0;
-            getBorder(currentBorder);
             break;
         }
 
@@ -440,7 +428,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX+1][posY+1] = FILLED;
 
             rotation = ROTATION_90;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_90:
@@ -449,7 +436,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+2] = FILLED;
 
             rotation = ROTATION_180;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_180:
@@ -458,7 +444,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX-1][posY+1] = FILLED;
 
             rotation = ROTATION_270;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_270:
@@ -467,7 +452,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY] = FILLED;
 
             rotation = ROTATION_0;
-            getBorder(currentBorder);
             break;
         }
 
@@ -484,7 +468,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY] = FILLED;
 
             rotation = ROTATION_90;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_90:
@@ -495,7 +478,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+2] = FILLED;
 
             rotation = ROTATION_180;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_180:
@@ -506,7 +488,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY] = FILLED;
 
             rotation = ROTATION_270;
-            getBorder(currentBorder);
             break;
 
         case ROTATION_270:
@@ -517,7 +498,6 @@ void TetrisWidget::blockRotate() {
             tbTetris[posX][posY+2] = FILLED;
 
             rotation = ROTATION_0;
-            getBorder(currentBorder);
             break;
         }
 
@@ -527,19 +507,46 @@ void TetrisWidget::blockRotate() {
         // Gère les 4 orrientation de la pièce Z
         switch(rotation) {
         case ROTATION_0:
+            tbTetris[posX+1][posY] = FREE;
+            tbTetris[posX][posY+2] = FREE;
 
+            tbTetris[posX-1][posY] = FILLED;
+            tbTetris[posX][posY] = FILLED;
+
+            rotation = ROTATION_90;
+            getBorder(currentBorder);
             break;
 
         case ROTATION_90:
+            tbTetris[posX-1][posY] = FREE;
+            tbTetris[posX][posY] = FREE;
 
+            tbTetris[posX+1][posY] = FILLED;
+            tbTetris[posX][posY+2] = FILLED;
+
+            rotation = ROTATION_180;
+            getBorder(currentBorder);
             break;
 
         case ROTATION_180:
+            tbTetris[posX+1][posY] = FREE;
+            tbTetris[posX][posY+2] = FREE;
 
+            tbTetris[posX-1][posY] = FILLED;
+            tbTetris[posX][posY] = FILLED;
+
+            rotation = ROTATION_270;
+            getBorder(currentBorder);
             break;
 
         case ROTATION_270:
+            tbTetris[posX-1][posY] = FREE;
+            tbTetris[posX][posY] = FREE;
 
+            tbTetris[posX+1][posY] = FILLED;
+            tbTetris[posX][posY+2] = FILLED;
+
+            rotation = ROTATION_0;
             break;
         }
 
@@ -625,6 +632,7 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
     // Rotation
     case Qt::Key_Up:
         blockRotate();
+        getBorder(currentBorder);
         update();
         break;
 
