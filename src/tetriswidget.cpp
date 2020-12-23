@@ -239,7 +239,11 @@ void TetrisWidget::getBorder(Border &border) {
                 if(oldPosY <= j) {
                     border.dbound = j;
                 }
-                oldPosY = j;
+
+                if(j > oldPosY) {
+                    oldPosY = j;
+                }
+
             }
 
     // Permet de définir le carreau le plus à gauche de la pièce
@@ -253,10 +257,13 @@ void TetrisWidget::getBorder(Border &border) {
 
 /**
  * Supprime les lignes remplies
+ * Descend les lignes supérieures
  */
 void TetrisWidget::clearRow() {
 
     const int ROW_FILLED = 10;
+
+    int row = 0;
 
     // Parcours le tableau et supprime les lignes remplies
     for(int j = 0; j < BOARD_HEIGHT; j++) {
@@ -267,11 +274,19 @@ void TetrisWidget::clearRow() {
             }
 
         if(count == ROW_FILLED) {
+            // Supprime la ligne si elle est pleine
             for(int i = 0; i < BOARD_WIDTH; i++)
                 tbTetrisFixed[i][j] = FREE;
 
-
+            // Descend les lignes supérieures
+            for(int i = 0; i < BOARD_WIDTH; i++)
+                for(int row = j; row >= 0; row--)
+                    if(tbTetrisFixed[i][row] == FILLED) {
+                        tbTetrisFixed[i][row] = FREE;
+                        tbTetrisFixed[i][row+1] = FILLED;
+                    }
         }
+
     }
 
 }
