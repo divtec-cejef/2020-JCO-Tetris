@@ -1,6 +1,6 @@
 // 2020-JCO-Tetris
 // Auteur : Membrez Matteo
-// Date de la dernière modification : 22.12.20
+// Date de la dernière modification : 11.01.21
 
 #include "tetriswidget.h"
 
@@ -216,8 +216,14 @@ void TetrisWidget::changeTable() {
                 tbTetrisFixed[i][j] = FILLED;
                 tbTetris[i][j] = FREE;
             }
-    needNextPiece = true;
     clearRow();
+
+    // Arrête le jeu si une pièce est trop haute
+    if(isGameOver()) {
+        stopTimer();
+    } else {
+        needNextPiece = true;
+    }
 }
 
 /**
@@ -616,6 +622,13 @@ void TetrisWidget::startTimer(int seconds) {
 }
 
 /**
+ * Arrête le timer
+ */
+void TetrisWidget::stopTimer() {
+    timer->stop();
+}
+
+/**
  * Gère le code à exécuter dans le timer
  */
 void TetrisWidget::initTimer() {
@@ -626,6 +639,19 @@ void TetrisWidget::initTimer() {
     if(needNextPiece) {
         addPiece();
     }
+}
+
+/**
+ * Définit quand la partie est terminée
+ * @return un booléen qui définit l'état de la partie
+ */
+bool TetrisWidget::isGameOver() {
+    for(int i = 0; i < BOARD_WIDTH; i++) {
+        if(tbTetrisFixed[i][0] == FILLED) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**

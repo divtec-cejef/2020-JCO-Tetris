@@ -91,6 +91,24 @@
    <property name="lineWidth">
     <number>3</number>
    </property>
+   <widget class="QLabel" name="TXT_GameOver">
+    <property name="geometry">
+     <rect>
+      <x>28</x>
+      <y>10</y>
+      <width>131</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>GameOver</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="TXT_NextPiece">
    <property name="geometry">
@@ -123,7 +141,7 @@
     <string>Start</string>
    </property>
   </widget>
-  <widget class="NextPiece" name="frame">
+  <widget class="NextPiece" name="NextPieceBox">
    <property name="geometry">
     <rect>
      <x>410</x>

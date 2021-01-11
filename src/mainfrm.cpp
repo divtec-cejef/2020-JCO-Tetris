@@ -1,6 +1,6 @@
 // 2020-JCO-Tetris
 // Auteur : Membrez Matteo
-// Date de la dernière modification : 22.12.20
+// Date de la dernière modification : 11.01.21
 
 #include "mainfrm.h"
 #include "ui_mainfrm.h"
@@ -23,4 +23,6 @@ MainFrm::~MainFrm()
 void MainFrm::on_BT_Start_clicked()
 {
     ui->GameBox->startTimer(1000);
+    ui->BT_Start->setEnabled(false);
+
 }
