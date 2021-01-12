@@ -10,6 +10,8 @@ MainFrm::MainFrm(QWidget *parent) :
     ui(new Ui::MainFrm)
 {
     ui->setupUi(this);
+
+    connect(ui->GameBox, &TetrisWidget::endOfGame, this, &MainFrm::onEndOfGame);
 }
 
 MainFrm::~MainFrm()
@@ -26,3 +28,8 @@ void MainFrm::on_BT_Start_clicked()
     ui->BT_Start->setEnabled(false);
 
 }
+
+void MainFrm::onEndOfGame() {
+    ui->BT_Start->setEnabled(true);
+}
+

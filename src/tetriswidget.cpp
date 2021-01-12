@@ -15,6 +15,7 @@
  */
 TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, f)
 {
+
     // Initialisation de toutes les cases de l'aire de jeu à FREE
     for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++) {
@@ -28,7 +29,7 @@ TetrisWidget::TetrisWidget(QWidget *parent, Qt::WindowFlags f) : QFrame(parent, 
 
 /**
  * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- * Dessine les éléments graphique du jeuEn fonction des valeurs dans le tableau
+ * Dessine les éléments graphique du jeu en fonction des valeurs dans le tableau
  */
 void TetrisWidget::paintEvent(QPaintEvent* pEvent) {
     QPainter painter(this);
@@ -221,6 +222,8 @@ void TetrisWidget::changeTable() {
     // Arrête le jeu si une pièce est trop haute
     if(isGameOver()) {
         stopTimer();
+        resetGame();
+        emit endOfGame();
     } else {
         needNextPiece = true;
     }
@@ -619,6 +622,7 @@ void TetrisWidget::startTimer(int seconds) {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(initTimer()));
     timer->start(seconds);
+    needNextPiece = true;
 }
 
 /**
@@ -652,6 +656,15 @@ bool TetrisWidget::isGameOver() {
         }
     }
     return false;
+}
+
+/**
+ * Réinitialise le jeu après un game over
+ */
+void TetrisWidget::resetGame() {
+    for(int i = 0; i < BOARD_WIDTH; i++)
+        for(int j = 0; j < BOARD_HEIGHT; j++)
+            tbTetrisFixed[i][j] = FREE;
 }
 
 /**
@@ -708,13 +721,6 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Up:
         blockRotate();
         getBorder(currentBorder);
-        update();
-        break;
-
-    // Barre espace
-    // Faire tomber la pièce
-    case Qt::Key_Space:
-
         update();
         break;
     }

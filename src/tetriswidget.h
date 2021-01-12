@@ -79,6 +79,10 @@ public:
     void blockRotate();
     void clearRow();
     bool isGameOver();
+    void resetGame();
+
+signals:
+    void endOfGame();
 
 protected:
     void keyPressEvent(QKeyEvent *event);

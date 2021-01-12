@@ -21,6 +21,7 @@ public:
 
 private slots:
     void on_BT_Start_clicked();
+    void onEndOfGame();
 
 private:
     Ui::MainFrm *ui;
