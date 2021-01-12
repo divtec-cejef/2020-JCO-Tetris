@@ -11,6 +11,10 @@ NextPiece::NextPiece(QWidget *parent, Qt::WindowFlags f) : QFrame (parent, f)
 
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * Dessine la future pièce
+ */
 void NextPiece::paintEvent(QPaintEvent* pEvent) {
 
     QPainter painter(this);
@@ -54,3 +58,5 @@ void NextPiece::paintEvent(QPaintEvent* pEvent) {
     QFrame::paintEvent(pEvent);
 
 }
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
