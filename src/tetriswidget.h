@@ -77,12 +77,18 @@ public:
     void stopTimer();
     void changeTable();
     void blockRotate();
-    void clearRow();
+    int clearRow();
     bool isGameOver();
     void resetGame();
 
+    int deletedRowCount = 0;
+
 signals:
     void endOfGame();
+    void oneRowDeleted();
+    void twoRowDeleted();
+    void threeRowDeleted();
+    void fourRowDeleted();
 
 protected:
     void keyPressEvent(QKeyEvent *event);

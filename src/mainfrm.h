@@ -23,6 +23,11 @@ private slots:
     void on_BT_Start_clicked();
     void onEndOfGame();
 
+    void oneRowDeleted();
+    void twoRowDeleted();
+    void threeRowDeleted();
+    void fourRowDeleted();
+
 private:
     Ui::MainFrm *ui;
 };

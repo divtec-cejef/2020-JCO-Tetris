@@ -13,6 +13,11 @@ MainFrm::MainFrm(QWidget *parent) :
     ui->TXT_GameOver->setVisible(false);
 
     connect(ui->GameBox, &TetrisWidget::endOfGame, this, &MainFrm::onEndOfGame);
+
+    connect(ui->GameBox, &TetrisWidget::oneRowDeleted, this, &MainFrm::oneRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::oneRowDeleted, this, &MainFrm::twoRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::oneRowDeleted, this, &MainFrm::threeRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::oneRowDeleted, this, &MainFrm::fourRowDeleted);
 }
 
 MainFrm::~MainFrm()
@@ -38,3 +43,30 @@ void MainFrm::onEndOfGame() {
     ui->TXT_GameOver->setVisible(true);
 }
 
+/**
+ * Code effectué quand le nombre de ligne supprimé est égal à 1
+ */
+void MainFrm::oneRowDeleted() {
+
+}
+
+/**
+ * Code effectué quand le nombre de ligne supprimé est égal à 2
+ */
+void MainFrm::twoRowDeleted() {
+
+}
+
+/**
+ * Code effectué quand le nombre de ligne supprimé est égal à 3
+ */
+void MainFrm::threeRowDeleted() {
+
+}
+
+/**
+ * Code effectué quand le nombre de ligne supprimé est égal à 4
+ */
+void MainFrm::fourRowDeleted() {
+
+}

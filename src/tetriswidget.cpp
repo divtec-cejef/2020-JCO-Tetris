@@ -217,7 +217,31 @@ void TetrisWidget::changeTable() {
                 tbTetrisFixed[i][j] = FILLED;
                 tbTetris[i][j] = FREE;
             }
-    clearRow();
+    deletedRowCount = clearRow();
+    switch(deletedRowCount) {
+
+    case 0:
+        break;
+
+    case 1:
+        emit oneRowDeleted();
+        break;
+
+    case 2:
+        emit twoRowDeleted();
+        break;
+
+    case 3:
+        emit threeRowDeleted();
+        break;
+
+    case 4:
+        emit fourRowDeleted();
+        break;
+
+    default:
+        break;
+    }
 
     // Arrête le jeu si une pièce est trop haute
     if(isGameOver()) {
@@ -268,11 +292,12 @@ void TetrisWidget::getBorder(Border &border) {
  * Supprime les lignes remplies
  * Descend les lignes supérieures
  */
-void TetrisWidget::clearRow() {
+int TetrisWidget::clearRow() {
 
     const int ROW_FILLED = 10;
 
     int row = 0;
+    int rowCount = 0;
 
     // Parcours le tableau et supprime les lignes remplies
     for(int j = 0; j < BOARD_HEIGHT; j++) {
@@ -284,8 +309,10 @@ void TetrisWidget::clearRow() {
 
         if(count == ROW_FILLED) {
             // Supprime la ligne si elle est pleine
-            for(int i = 0; i < BOARD_WIDTH; i++)
+            for(int i = 0; i < BOARD_WIDTH; i++) {
                 tbTetrisFixed[i][j] = FREE;
+            }
+
 
             // Descend les lignes supérieures
             for(int i = 0; i < BOARD_WIDTH; i++)
@@ -294,9 +321,16 @@ void TetrisWidget::clearRow() {
                         tbTetrisFixed[i][row] = FREE;
                         tbTetrisFixed[i][row+1] = FILLED;
                     }
+            rowCount++;
         }
 
     }
+
+    if(rowCount > 4) {
+        rowCount = 4;
+    }
+
+    return rowCount;
 
 }
 
