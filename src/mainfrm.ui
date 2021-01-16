@@ -139,7 +139,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Niveau :</string>
+        <string>Niveau : 0</string>
        </property>
       </widget>
      </item>
@@ -163,7 +163,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Score  :</string>
+        <string>Score  : 0</string>
        </property>
       </widget>
      </item>
@@ -223,7 +223,7 @@
     <rect>
      <x>390</x>
      <y>54</y>
-     <width>181</width>
+     <width>187</width>
      <height>80</height>
     </rect>
    </property>

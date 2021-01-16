@@ -30,6 +30,9 @@ private slots:
 
 private:
     Ui::MainFrm *ui;
+
+    int score = 0;
+    int level = 0;
 };
 
 #endif // MAINFRM_H
