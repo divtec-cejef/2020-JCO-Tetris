@@ -85,6 +85,7 @@ public:
 
 signals:
     void endOfGame();
+    void rowDeleted();
     void oneRowDeleted();
     void twoRowDeleted();
     void threeRowDeleted();

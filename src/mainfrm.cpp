@@ -16,10 +16,11 @@ MainFrm::MainFrm(QWidget *parent) :
     connect(ui->GameBox, &TetrisWidget::endOfGame, this, &MainFrm::onEndOfGame);
 
     // Connexion des signaux relatifs au nombre de lignes supprimées
-    connect(ui->GameBox, &TetrisWidget::oneRowDeleted, this, &MainFrm::oneRowDeleted);
-    connect(ui->GameBox, &TetrisWidget::twoRowDeleted, this, &MainFrm::twoRowDeleted);
-    connect(ui->GameBox, &TetrisWidget::threeRowDeleted, this, &MainFrm::threeRowDeleted);
-    connect(ui->GameBox, &TetrisWidget::fourRowDeleted, this, &MainFrm::fourRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::rowDeleted, this, &MainFrm::onRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::oneRowDeleted, this, &MainFrm::onOneRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::twoRowDeleted, this, &MainFrm::onTwoRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::threeRowDeleted, this, &MainFrm::onThreeRowDeleted);
+    connect(ui->GameBox, &TetrisWidget::fourRowDeleted, this, &MainFrm::onFourRowDeleted);
 }
 
 MainFrm::~MainFrm()
@@ -44,6 +45,7 @@ void MainFrm::on_BT_Start_clicked()
     ui->TXT_Level->setText("Niveau : " + QString::number(level));
 }
 
+
 /**
  * S'exécute à chaque fois que le jeu est terminé
  */
@@ -53,9 +55,33 @@ void MainFrm::onEndOfGame() {
 }
 
 /**
+ * Code effectué quand au moins une ligne est supprimée
+ */
+void MainFrm::onRowDeleted() {
+
+    if(score >= SCORE_LEVEL1 && score < SCORE_LEVEL2) {
+        level = 1;
+    } else if(score >= SCORE_LEVEL2 && score < SCORE_LEVEL3) {
+        level = 2;
+    } else if(score >= SCORE_LEVEL3 && score < SCORE_LEVEL4) {
+        level = 3;
+    } else if(score >= SCORE_LEVEL4 && score < SCORE_LEVEL5) {
+        level = 4;
+    } else if(score >= SCORE_LEVEL5 && score < SCORE_LEVEL6) {
+        level = 5;
+    } else if(score >= SCORE_LEVEL6) {
+        level = 6;
+    }
+
+    // Affiche le niveau actuel
+    ui->TXT_Level->setText("Niveau : " + QString::number(level));
+
+}
+
+/**
  * Code effectué quand le nombre de ligne supprimé est égal à 1
  */
-void MainFrm::oneRowDeleted() {
+void MainFrm::onOneRowDeleted() {
     score += 40*(level+1);
     ui->TXT_Score->setText("Score : " + QString::number(score));
 }
@@ -63,7 +89,7 @@ void MainFrm::oneRowDeleted() {
 /**
  * Code effectué quand le nombre de ligne supprimé est égal à 2
  */
-void MainFrm::twoRowDeleted() {
+void MainFrm::onTwoRowDeleted() {
     score += 100*(level+1);
     ui->TXT_Score->setText("Score : " + QString::number(score));
 }
@@ -71,7 +97,7 @@ void MainFrm::twoRowDeleted() {
 /**
  * Code effectué quand le nombre de ligne supprimé est égal à 3
  */
-void MainFrm::threeRowDeleted() {
+void MainFrm::onThreeRowDeleted() {
     score += 300*(level+1);
     ui->TXT_Score->setText("Score : " + QString::number(score));
 }
@@ -79,7 +105,7 @@ void MainFrm::threeRowDeleted() {
 /**
  * Code effectué quand le nombre de ligne supprimé est égal à 4
  */
-void MainFrm::fourRowDeleted() {
+void MainFrm::onFourRowDeleted() {
     score += 1200*(level+1);
     ui->TXT_Score->setText("Score : " + QString::number(score));
 }

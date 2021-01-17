@@ -225,18 +225,22 @@ void TetrisWidget::changeTable() {
 
     case 1:
         emit oneRowDeleted();
+        emit rowDeleted();
         break;
 
     case 2:
         emit twoRowDeleted();
+        emit rowDeleted();
         break;
 
     case 3:
         emit threeRowDeleted();
+        emit rowDeleted();
         break;
 
     case 4:
         emit fourRowDeleted();
+        emit rowDeleted();
         break;
 
     default:

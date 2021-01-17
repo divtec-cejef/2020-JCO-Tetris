@@ -23,13 +23,23 @@ private slots:
     void on_BT_Start_clicked();
     void onEndOfGame();
 
-    void oneRowDeleted();
-    void twoRowDeleted();
-    void threeRowDeleted();
-    void fourRowDeleted();
+    void onRowDeleted();
+    void onOneRowDeleted();
+    void onTwoRowDeleted();
+    void onThreeRowDeleted();
+    void onFourRowDeleted();
 
 private:
     Ui::MainFrm *ui;
+
+    // Palier des différents niveaux
+    // En fonction du score
+    const int SCORE_LEVEL1 = 500;
+    const int SCORE_LEVEL2 = 1000;
+    const int SCORE_LEVEL3 = 5000;
+    const int SCORE_LEVEL4 = 10000;
+    const int SCORE_LEVEL5 = 20000;
+    const int SCORE_LEVEL6 = 40000;
 
     int score = 0;
     int level = 0;
