@@ -254,6 +254,7 @@ void TetrisWidget::changeTable() {
         emit endOfGame();
     } else {
         needNextPiece = true;
+        isCollide = false;
     }
 }
 
