@@ -21,11 +21,20 @@ MainFrm::MainFrm(QWidget *parent) :
     connect(ui->GameBox, &TetrisWidget::twoRowDeleted, this, &MainFrm::onTwoRowDeleted);
     connect(ui->GameBox, &TetrisWidget::threeRowDeleted, this, &MainFrm::onThreeRowDeleted);
     connect(ui->GameBox, &TetrisWidget::fourRowDeleted, this, &MainFrm::onFourRowDeleted);
+
+    initStyle();
+
 }
 
 MainFrm::~MainFrm()
 {
     delete ui;
+}
+
+void MainFrm::initStyle() {
+    ui->BT_Start->setStyleSheet("color: white;"
+                                "border-radius: 8px;"
+                                "background-color: crimson");
 }
 
 /**
@@ -43,6 +52,10 @@ void MainFrm::on_BT_Start_clicked()
     level = 0;
     ui->TXT_Score->setText("Score : " + QString::number(score));
     ui->TXT_Level->setText("Niveau : " + QString::number(level));
+
+    ui->BT_Start->setStyleSheet("color: black;"
+                                "border-radius: 8px;"
+                                "background-color: grey");
 }
 
 
@@ -52,6 +65,8 @@ void MainFrm::on_BT_Start_clicked()
 void MainFrm::onEndOfGame() {
     ui->BT_Start->setEnabled(true);
     ui->TXT_GameOver->setVisible(true);
+
+    initStyle();
 }
 
 /**
@@ -61,16 +76,22 @@ void MainFrm::onRowDeleted() {
 
     if(score >= SCORE_LEVEL1 && score < SCORE_LEVEL2) {
         level = 1;
+        ui->GameBox->setTimer(SPEED_LEVEL1);
     } else if(score >= SCORE_LEVEL2 && score < SCORE_LEVEL3) {
         level = 2;
+        ui->GameBox->setTimer(SPEED_LEVEL2);
     } else if(score >= SCORE_LEVEL3 && score < SCORE_LEVEL4) {
         level = 3;
+        ui->GameBox->setTimer(SPEED_LEVEL3);
     } else if(score >= SCORE_LEVEL4 && score < SCORE_LEVEL5) {
         level = 4;
+        ui->GameBox->setTimer(SPEED_LEVEL4);
     } else if(score >= SCORE_LEVEL5 && score < SCORE_LEVEL6) {
         level = 5;
+        ui->GameBox->setTimer(SPEED_LEVEL5);
     } else if(score >= SCORE_LEVEL6) {
         level = 6;
+        ui->GameBox->setTimer(SPEED_LEVEL6);
     }
 
     // Affiche le niveau actuel

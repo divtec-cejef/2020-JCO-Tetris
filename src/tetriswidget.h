@@ -73,7 +73,8 @@ public:
     void addPiece();
     void downPiece();
     void getBorder(Border &border);
-    void startTimer(int seconds);
+    void startTimer(int milliSeconds);
+    void setTimer(int milliSeconds);
     void stopTimer();
     void changeTable();
     void blockRotate();

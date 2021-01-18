@@ -18,6 +18,7 @@ class MainFrm : public QWidget
 public:
     MainFrm(QWidget *parent = nullptr);
     ~MainFrm();
+    void initStyle();
 
 private slots:
     void on_BT_Start_clicked();
@@ -40,6 +41,15 @@ private:
     const int SCORE_LEVEL4 = 10000;
     const int SCORE_LEVEL5 = 20000;
     const int SCORE_LEVEL6 = 40000;
+
+    // Palier des différentes vitesses
+    // En fonction du niveau
+    const int SPEED_LEVEL1 = 800;
+    const int SPEED_LEVEL2 = 600;
+    const int SPEED_LEVEL3 = 500;
+    const int SPEED_LEVEL4 = 400;
+    const int SPEED_LEVEL5 = 300;
+    const int SPEED_LEVEL6 = 200;
 
     int score = 0;
     int level = 0;

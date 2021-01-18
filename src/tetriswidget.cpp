@@ -657,11 +657,19 @@ void TetrisWidget::blockRotate() {
  * Lance le timer
  * @param seconds le nombre de secondes entre deux exécutions du timer
  */
-void TetrisWidget::startTimer(int seconds) {
+void TetrisWidget::startTimer(int milliSeconds) {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(initTimer()));
-    timer->start(seconds);
+    timer->start(milliSeconds);
     needNextPiece = true;
+}
+
+/**
+ * Change la durée du timer
+ * @param seconds le nombre de secondes
+ */
+void TetrisWidget::setTimer(int milliSeconds) {
+    timer->setInterval(milliSeconds);
 }
 
 /**
