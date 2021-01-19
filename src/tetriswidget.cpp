@@ -331,10 +331,6 @@ int TetrisWidget::clearRow() {
 
     }
 
-    if(rowCount > 4) {
-        rowCount = 4;
-    }
-
     return rowCount;
 
 }
