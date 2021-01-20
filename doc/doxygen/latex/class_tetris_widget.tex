@@ -1,0 +1,236 @@
+\hypertarget{class_tetris_widget}{}\doxysection{Référence de la classe Tetris\+Widget}
+\label{class_tetris_widget}\index{TetrisWidget@{TetrisWidget}}
+Graphe d\textquotesingle{}héritage de Tetris\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tetris_widget}
+\end{center}
+\end{figure}
+\doxysubsection*{Connecteurs publics}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a7bb0a7c10785e428980e9da5894b71fb}{init\+Timer}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Signaux}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a4cb64866b7f52d21b85d4d3702b721e2}\label{class_tetris_widget_a4cb64866b7f52d21b85d4d3702b721e2}} 
+void {\bfseries end\+Of\+Game} ()
+\item 
+\mbox{\Hypertarget{class_tetris_widget_aba9d900208c387a878b1381c08b7cfcd}\label{class_tetris_widget_aba9d900208c387a878b1381c08b7cfcd}} 
+void {\bfseries row\+Deleted} ()
+\item 
+\mbox{\Hypertarget{class_tetris_widget_aed2a075a4dcd7a81c8aed9f93005edfe}\label{class_tetris_widget_aed2a075a4dcd7a81c8aed9f93005edfe}} 
+void {\bfseries one\+Row\+Deleted} ()
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a0e8ac931eab3c67d5fdcbe9cc73da1ba}\label{class_tetris_widget_a0e8ac931eab3c67d5fdcbe9cc73da1ba}} 
+void {\bfseries two\+Row\+Deleted} ()
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a97bffaf64e98f13ed311513569d52022}\label{class_tetris_widget_a97bffaf64e98f13ed311513569d52022}} 
+void {\bfseries three\+Row\+Deleted} ()
+\item 
+\mbox{\Hypertarget{class_tetris_widget_ae69b0cab5d52f10e91e4b4e344f402d3}\label{class_tetris_widget_ae69b0cab5d52f10e91e4b4e344f402d3}} 
+void {\bfseries four\+Row\+Deleted} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tetris_widget_af8920e594d0282be169b9eb14088134d}{Tetris\+Widget}} (Q\+Widget $\ast$parent=nullptr, Qt\+::\+Window\+Flags f=Qt\+::\+Window\+Flags())
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a32e784d74265799d801b1eaae6c0862b}{add\+Piece}} ()
+\item 
+void \mbox{\hyperlink{class_tetris_widget_ad93689fe712ffcf9d37704f6c72603d0}{down\+Piece}} ()
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a5bbbfd209332047c2f426ebc4362ddd0}{get\+Border}} (\mbox{\hyperlink{struct_border}{Border}} \&border)
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a0edccb43f53e201634bc472072ced58e}{start\+Timer}} (int milli\+Seconds)
+\item 
+void \mbox{\hyperlink{class_tetris_widget_aa296eca46ef231e19f0ba18ff0216057}{set\+Timer}} (int milli\+Seconds)
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a378ec9dfee991ed9bfca291c7c29e87d}{stop\+Timer}} ()
+\item 
+void \mbox{\hyperlink{class_tetris_widget_adec409be01c51e2b89aeea2560bcbf22}{change\+Table}} ()
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a864c31aaeaefa24289c8fb36efaaec56}{block\+Rotate}} ()
+\item 
+int \mbox{\hyperlink{class_tetris_widget_a251c24b2224003be2a54157b00bd0e05}{clear\+Row}} ()
+\item 
+bool \mbox{\hyperlink{class_tetris_widget_ad9138320d4d74c0325446f6b95d4a11d}{is\+Game\+Over}} ()
+\item 
+void \mbox{\hyperlink{class_tetris_widget_ac83ce71436c1a9706282c9b24eaf3a16}{reset\+Game}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a328c10e2086e433038267943ac54ab42}\label{class_tetris_widget_a328c10e2086e433038267943ac54ab42}} 
+int {\bfseries deleted\+Row\+Count} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions membres protégées}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tetris_widget_a2adb5bbcf8daedbaa3d1d488e6e0a8f8}{key\+Press\+Event}} (Q\+Key\+Event $\ast$event)
+\item 
+void \mbox{\hyperlink{class_tetris_widget_af748d7470db0b3445ee82da6ee3e6d5e}{paint\+Event}} (Q\+Paint\+Event $\ast$p\+Event)
+\end{DoxyCompactItemize}
+\doxysubsection*{Attributs privés}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a32dd8353f66fa61aeb6bbf86fefa5d75}\label{class_tetris_widget_a32dd8353f66fa61aeb6bbf86fefa5d75}} 
+int {\bfseries tb\+Tetris} \mbox{[}B\+O\+A\+R\+D\+\_\+\+W\+I\+D\+TH\mbox{]}\mbox{[}B\+O\+A\+R\+D\+\_\+\+H\+E\+I\+G\+HT\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_aaa5377753d72c3778b1041923f326af4}\label{class_tetris_widget_aaa5377753d72c3778b1041923f326af4}} 
+int {\bfseries tb\+Tetris\+Fixed} \mbox{[}B\+O\+A\+R\+D\+\_\+\+W\+I\+D\+TH\mbox{]}\mbox{[}B\+O\+A\+R\+D\+\_\+\+H\+E\+I\+G\+HT\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a63f0ad4fe5a2878b2e33cf6ec8f96526}\label{class_tetris_widget_a63f0ad4fe5a2878b2e33cf6ec8f96526}} 
+Tetris\+Shape {\bfseries shape} = N\+O\+\_\+\+S\+H\+A\+PE
+\item 
+\mbox{\Hypertarget{class_tetris_widget_ac7371999e43187c6353470873074864a}\label{class_tetris_widget_ac7371999e43187c6353470873074864a}} 
+Tetris\+Rotation {\bfseries rotation} = R\+O\+T\+A\+T\+I\+O\+N\+\_\+0
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a5c918b1503d9d7f7dfae7276740c397f}\label{class_tetris_widget_a5c918b1503d9d7f7dfae7276740c397f}} 
+int {\bfseries posX} = 5
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a84334dcb4b3d8a97e46f7aece4b55704}\label{class_tetris_widget_a84334dcb4b3d8a97e46f7aece4b55704}} 
+int {\bfseries posY} = 0
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a9e73d81d01f5c4211aa3f9314a0dcf74}\label{class_tetris_widget_a9e73d81d01f5c4211aa3f9314a0dcf74}} 
+bool {\bfseries is\+Running}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a82c3f4016efa4a2291e457a9e0ee9cea}\label{class_tetris_widget_a82c3f4016efa4a2291e457a9e0ee9cea}} 
+bool {\bfseries need\+Next\+Piece} = true
+\item 
+\mbox{\Hypertarget{class_tetris_widget_afa350d61e4a6864c4bb830a99a9ca5f4}\label{class_tetris_widget_afa350d61e4a6864c4bb830a99a9ca5f4}} 
+bool {\bfseries is\+Collide}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a21c65d21f80b96dd561ca58babb74e63}\label{class_tetris_widget_a21c65d21f80b96dd561ca58babb74e63}} 
+\mbox{\hyperlink{struct_border}{Border}} {\bfseries current\+Border}
+\item 
+\mbox{\Hypertarget{class_tetris_widget_a16bb37a9bb36b39d4449bdadfd65fc7e}\label{class_tetris_widget_a16bb37a9bb36b39d4449bdadfd65fc7e}} 
+Q\+Timer $\ast$ {\bfseries timer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentation des constructeurs et destructeur}
+\mbox{\Hypertarget{class_tetris_widget_af8920e594d0282be169b9eb14088134d}\label{class_tetris_widget_af8920e594d0282be169b9eb14088134d}} 
+\index{TetrisWidget@{TetrisWidget}!TetrisWidget@{TetrisWidget}}
+\index{TetrisWidget@{TetrisWidget}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{TetrisWidget()}{TetrisWidget()}}
+{\footnotesize\ttfamily Tetris\+Widget\+::\+Tetris\+Widget (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily nullptr},  }\item[{Qt\+::\+Window\+Flags}]{f = {\ttfamily Qt\+:\+:WindowFlags()} }\end{DoxyParamCaption})}
+
+Constructeur de la zone de jeu 
+
+\doxysubsection{Documentation des fonctions membres}
+\mbox{\Hypertarget{class_tetris_widget_a32e784d74265799d801b1eaae6c0862b}\label{class_tetris_widget_a32e784d74265799d801b1eaae6c0862b}} 
+\index{TetrisWidget@{TetrisWidget}!addPiece@{addPiece}}
+\index{addPiece@{addPiece}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{addPiece()}{addPiece()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::add\+Piece (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Ajoute aléatoirement une pièce au tableau \mbox{\Hypertarget{class_tetris_widget_a864c31aaeaefa24289c8fb36efaaec56}\label{class_tetris_widget_a864c31aaeaefa24289c8fb36efaaec56}} 
+\index{TetrisWidget@{TetrisWidget}!blockRotate@{blockRotate}}
+\index{blockRotate@{blockRotate}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{blockRotate()}{blockRotate()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::block\+Rotate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Provoque la rotation de la pièce de 90° \mbox{\Hypertarget{class_tetris_widget_adec409be01c51e2b89aeea2560bcbf22}\label{class_tetris_widget_adec409be01c51e2b89aeea2560bcbf22}} 
+\index{TetrisWidget@{TetrisWidget}!changeTable@{changeTable}}
+\index{changeTable@{changeTable}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{changeTable()}{changeTable()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::change\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Transfère tous les carreaux remplis du tableau de la pièce mobile Dans le tableau des pièces fixes \mbox{\Hypertarget{class_tetris_widget_a251c24b2224003be2a54157b00bd0e05}\label{class_tetris_widget_a251c24b2224003be2a54157b00bd0e05}} 
+\index{TetrisWidget@{TetrisWidget}!clearRow@{clearRow}}
+\index{clearRow@{clearRow}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{clearRow()}{clearRow()}}
+{\footnotesize\ttfamily int Tetris\+Widget\+::clear\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Supprime les lignes remplies Descend les lignes supérieures \mbox{\Hypertarget{class_tetris_widget_ad93689fe712ffcf9d37704f6c72603d0}\label{class_tetris_widget_ad93689fe712ffcf9d37704f6c72603d0}} 
+\index{TetrisWidget@{TetrisWidget}!downPiece@{downPiece}}
+\index{downPiece@{downPiece}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{downPiece()}{downPiece()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::down\+Piece (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Fait descendre la pièce de 1 case jusqu\textquotesingle{}à ce qu\textquotesingle{}elle touche le fond ou qu\textquotesingle{}elle atteigne une autre pièce \mbox{\Hypertarget{class_tetris_widget_a5bbbfd209332047c2f426ebc4362ddd0}\label{class_tetris_widget_a5bbbfd209332047c2f426ebc4362ddd0}} 
+\index{TetrisWidget@{TetrisWidget}!getBorder@{getBorder}}
+\index{getBorder@{getBorder}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{getBorder()}{getBorder()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::get\+Border (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_border}{Border}} \&}]{border }\end{DoxyParamCaption})}
+
+Définit les bordures des pièces 
+\begin{DoxyParams}{Paramètres}
+{\em border} & strucutre des bordures \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tetris_widget_a7bb0a7c10785e428980e9da5894b71fb}\label{class_tetris_widget_a7bb0a7c10785e428980e9da5894b71fb}} 
+\index{TetrisWidget@{TetrisWidget}!initTimer@{initTimer}}
+\index{initTimer@{initTimer}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{initTimer}{initTimer}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::init\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Gère le code à exécuter dans le timer \mbox{\Hypertarget{class_tetris_widget_ad9138320d4d74c0325446f6b95d4a11d}\label{class_tetris_widget_ad9138320d4d74c0325446f6b95d4a11d}} 
+\index{TetrisWidget@{TetrisWidget}!isGameOver@{isGameOver}}
+\index{isGameOver@{isGameOver}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{isGameOver()}{isGameOver()}}
+{\footnotesize\ttfamily bool Tetris\+Widget\+::is\+Game\+Over (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Définit quand la partie est terminée \begin{DoxyReturn}{Renvoie}
+un booléen qui définit l\textquotesingle{}état de la partie 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tetris_widget_a2adb5bbcf8daedbaa3d1d488e6e0a8f8}\label{class_tetris_widget_a2adb5bbcf8daedbaa3d1d488e6e0a8f8}} 
+\index{TetrisWidget@{TetrisWidget}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{Q\+Key\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Gère les événements effectués lors de l\textquotesingle{}appui sur les touches du clavier 
+\begin{DoxyParams}{Paramètres}
+{\em event} & l\textquotesingle{}événement réalisé \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tetris_widget_af748d7470db0b3445ee82da6ee3e6d5e}\label{class_tetris_widget_af748d7470db0b3445ee82da6ee3e6d5e}} 
+\index{TetrisWidget@{TetrisWidget}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::paint\+Event (\begin{DoxyParamCaption}\item[{Q\+Paint\+Event $\ast$}]{p\+Event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\DoxyHorRuler{0}
+ Dessine les éléments graphique du jeu en fonction des valeurs dans le tableau \mbox{\Hypertarget{class_tetris_widget_ac83ce71436c1a9706282c9b24eaf3a16}\label{class_tetris_widget_ac83ce71436c1a9706282c9b24eaf3a16}} 
+\index{TetrisWidget@{TetrisWidget}!resetGame@{resetGame}}
+\index{resetGame@{resetGame}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{resetGame()}{resetGame()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::reset\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Réinitialise le jeu après un game over \mbox{\Hypertarget{class_tetris_widget_aa296eca46ef231e19f0ba18ff0216057}\label{class_tetris_widget_aa296eca46ef231e19f0ba18ff0216057}} 
+\index{TetrisWidget@{TetrisWidget}!setTimer@{setTimer}}
+\index{setTimer@{setTimer}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{setTimer()}{setTimer()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::set\+Timer (\begin{DoxyParamCaption}\item[{int}]{milli\+Seconds }\end{DoxyParamCaption})}
+
+Change la durée du timer 
+\begin{DoxyParams}{Paramètres}
+{\em seconds} & le nombre de secondes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tetris_widget_a0edccb43f53e201634bc472072ced58e}\label{class_tetris_widget_a0edccb43f53e201634bc472072ced58e}} 
+\index{TetrisWidget@{TetrisWidget}!startTimer@{startTimer}}
+\index{startTimer@{startTimer}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{startTimer()}{startTimer()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::start\+Timer (\begin{DoxyParamCaption}\item[{int}]{milli\+Seconds }\end{DoxyParamCaption})}
+
+Lance le timer 
+\begin{DoxyParams}{Paramètres}
+{\em seconds} & le nombre de secondes entre deux exécutions du timer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tetris_widget_a378ec9dfee991ed9bfca291c7c29e87d}\label{class_tetris_widget_a378ec9dfee991ed9bfca291c7c29e87d}} 
+\index{TetrisWidget@{TetrisWidget}!stopTimer@{stopTimer}}
+\index{stopTimer@{stopTimer}!TetrisWidget@{TetrisWidget}}
+\doxysubsubsection{\texorpdfstring{stopTimer()}{stopTimer()}}
+{\footnotesize\ttfamily void Tetris\+Widget\+::stop\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Arrête le timer 
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+tetriswidget.\+h\item 
+tetriswidget.\+cpp\end{DoxyCompactItemize}
