@@ -9,7 +9,6 @@
 #include <QTimer>
 #include <QDebug>
 
-
 /**
  * Constructeur de la zone de jeu
  */
@@ -657,6 +656,7 @@ void TetrisWidget::startTimer(int milliSeconds) {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(initTimer()));
     timer->start(milliSeconds);
+    startMusic();
     needNextPiece = true;
 }
 
@@ -695,6 +695,7 @@ void TetrisWidget::initTimer() {
 bool TetrisWidget::isGameOver() {
     for(int i = 0; i < BOARD_WIDTH; i++) {
         if(tbTetrisFixed[i][0] == FILLED) {
+            stopMusic();
             return true;
         }
     }
@@ -708,6 +709,27 @@ void TetrisWidget::resetGame() {
     for(int i = 0; i < BOARD_WIDTH; i++)
         for(int j = 0; j < BOARD_HEIGHT; j++)
             tbTetrisFixed[i][j] = FREE;
+}
+
+/**
+ * Démarre la musique du jeu
+ */
+void TetrisWidget::startMusic() {
+    playlist->addMedia(QUrl("qrc:/sounds/TetrisTheme.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    music->setPlaylist(playlist);
+    music->play();
+}
+
+/**
+ * Arrête la musique du jeu
+ * Lance la musique de Game Over
+ */
+void TetrisWidget::stopMusic() {
+    music->stop();
+    music->setMedia(QUrl("qrc:/sounds/GameOver.mp3"));
+    music->play();
 }
 
 /**
@@ -762,7 +784,14 @@ void TetrisWidget::keyPressEvent(QKeyEvent *event) {
     // Flèche du haut
     // Rotation
     case Qt::Key_Up:
-        blockRotate();
+        if(currentBorder.lbound > 0 && currentBorder.rbound < BOARD_WIDTH-1) {
+            if(shape != I) {
+                blockRotate();
+            } else if(currentBorder.rbound < BOARD_WIDTH-2 || rotation == ROTATION_0 || rotation == ROTATION_180) {
+                blockRotate();
+            }
+        }
+
         getBorder(currentBorder);
         update();
         break;

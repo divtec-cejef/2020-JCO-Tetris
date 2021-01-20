@@ -7,6 +7,8 @@
 
 #include <QFrame>
 #include <QTimer>
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 
 /*
  * FREE : indique que le point du tableau est vide
@@ -81,8 +83,8 @@ public:
     int clearRow();
     bool isGameOver();
     void resetGame();
-
-    int deletedRowCount = 0;
+    void startMusic();
+    void stopMusic();
 
 signals:
     void endOfGame();
@@ -117,8 +119,11 @@ private:
     bool isRunning;
     bool needNextPiece = true;
     bool isCollide;
+    int deletedRowCount = 0;
     Border currentBorder;
     QTimer *timer;
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    QMediaPlayer *music = new QMediaPlayer();
 
 };
 
