@@ -206,6 +206,74 @@ void TetrisWidget::downPiece() {
 }
 
 /**
+ * Déplace la pièce vers la gauche
+ */
+void TetrisWidget::leftPiece() {
+
+    // Vérifie si la pièce est déjà collé au bord gauche du tableau
+    if(currentBorder.lbound != 0) {
+
+        // Vérifie si une pièce est déjà située à la gauche de la pièce mobile
+        for(int i = 0; i < BOARD_WIDTH; i++)
+            for(int j = BOARD_HEIGHT-1; j >= 0; j--)
+                if(tbTetris[i][j] == FILLED && tbTetrisFixed[i-1][j] == FILLED) {
+                    isCollideLeft = true;
+                }
+
+        // Déplace la pièce vers la gauche
+        // si aucune pièce ne gêne
+        for(int i = 0; i < BOARD_WIDTH; i++)
+            for(int j = BOARD_HEIGHT-1; j >= 0; j--)
+                if(tbTetris[i][j] == FILLED && isCollideLeft == false) {
+                    tbTetris[i][j] = FREE;
+                    tbTetris[i-1][j] = FILLED;
+                }
+
+        if(isCollideLeft == false) {
+            currentBorder.lbound--;
+            currentBorder.rbound--;
+            posX--;
+        }
+
+        isCollideLeft = false;
+    }
+}
+
+/**
+ * Déplace la pièce vers la droite
+ */
+void TetrisWidget::rightPiece() {
+
+    // Vérifie si la pièce est déjà collé au bord droit du tableau
+    if(currentBorder.rbound < BOARD_WIDTH-1) {
+
+        // Vérifie si une pièce est déjà située à la droite de la pièce mobile
+        for(int i = BOARD_WIDTH-1; i >= 0; i--)
+            for(int j = BOARD_HEIGHT-1; j >= 0; j--)
+                if(tbTetris[i][j] == FILLED && tbTetrisFixed[i+1][j] == FILLED) {
+                    isCollideRight = true;
+                }
+
+        // Déplace la pièce vers la droite
+        // si aucune pièce ne gêne
+        for(int i = BOARD_WIDTH-1; i >= 0; i--)
+            for(int j = BOARD_HEIGHT-1; j >= 0; j--)
+                if(tbTetris[i][j] == FILLED && isCollideRight == false) {
+                    tbTetris[i][j] = FREE;
+                    tbTetris[i+1][j] = FILLED;
+                }
+
+        if(isCollideRight == false) {
+            currentBorder.lbound++;
+            currentBorder.rbound++;
+            posX++;
+        }
+
+        isCollideRight = false;
+    }
+}
+
+/**
  * Transfère tous les carreaux remplis du tableau de la pièce mobile
  * Dans le tableau des pièces fixes
  */
@@ -739,39 +807,19 @@ void TetrisWidget::stopMusic() {
 void TetrisWidget::keyPressEvent(QKeyEvent *event) {
 
     switch (event->key()) {
+
     // Flèche de gauche
     // Aller à gauche si n'est pas à la limite gauche
     case Qt::Key_Left:
-        if(currentBorder.lbound != 0) {
-            for(int i = 0; i < BOARD_WIDTH; i++)
-                for(int j = BOARD_HEIGHT-1; j >= 0; j--)
-                    if(tbTetris[i][j] == FILLED) {
-                        tbTetris[i][j] = FREE;
-                        tbTetris[i-1][j] = FILLED;
-                    }
-            update();
-            currentBorder.lbound--;
-            currentBorder.rbound--;
-            posX--;
-        }
+        leftPiece();
+        update();
         break;
 
     // Flèche de droite
     // Aller à droite si n'est pas à la limite droite
     case Qt::Key_Right:
-        if(currentBorder.rbound < BOARD_WIDTH-1) {
-            for(int i = BOARD_WIDTH-1; i >= 0; i--)
-                for(int j = BOARD_HEIGHT-1; j >= 0; j--)
-                    if(tbTetris[i][j] == FILLED) {
-                        tbTetris[i][j] = FREE;
-                        tbTetris[i+1][j] = FILLED;
-                    }
-            update();
-            currentBorder.lbound++;
-            currentBorder.rbound++;
-            posX++;
-        }
-
+        rightPiece();
+        update();
         break;
 
     // Flèche du bas

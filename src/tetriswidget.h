@@ -74,6 +74,8 @@ public:
 
     void addPiece();
     void downPiece();
+    void leftPiece();
+    void rightPiece();
     void getBorder(Border &border);
     void startTimer(int milliSeconds);
     void setTimer(int milliSeconds);
@@ -119,6 +121,8 @@ private:
     bool isRunning;
     bool needNextPiece = true;
     bool isCollide;
+    bool isCollideRight;
+    bool isCollideLeft;
     int deletedRowCount = 0;
     Border currentBorder;
     QTimer *timer;
