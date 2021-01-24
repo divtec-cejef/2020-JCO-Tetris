@@ -68,144 +68,157 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// 2020-JCO-Tetris</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Auteur : Membrez Matteo</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Date de la dernière modification : 11.01.21</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Date de la dernière modification : 23.01.21</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef TETRISWIDGET_H</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define TETRISWIDGET_H</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QFrame&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QTimer&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * FREE : indique que le point du tableau est vide</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * FILLED : indique que le point du tableau contient un bloc</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    FREE,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    FILLED</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} TetrisValue;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * O : La forme O</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * I : La forme I</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * J : La forme J</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * L : La forme L</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * T : La forme T</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * S : La forme S</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * Z : La forme Z</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * NO_SHAPE : Pas de forme</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    O,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    I,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    J,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    L,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    T,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    S,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    Z,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    NO_SHAPE</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} TetrisShape;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * ROTATION_0 : la rotation de 0° de la pièce</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * ROTATION_90 : la rotation de 90° de la pièce</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * ROTATION_180 : la rotation de 180° de la pièce</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * ROTATION_270 : la rotation de 270° de la pièce</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    ROTATION_0,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    ROTATION_90,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    ROTATION_180,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    ROTATION_270</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} TetrisRotation;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="struct_border.html">   57</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_border.html">Border</a> {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">int</span> dbound; <span class="comment">// Bordure inférieure de la pièce</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">int</span> lbound; <span class="comment">// Bordure gauche de la pièce</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">int</span> rbound; <span class="comment">// Bordure droite de la pièce</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> BOARD_HEIGHT = 20; <span class="comment">// Hauteur de l&#39;aire de jeu</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> BOARD_WIDTH = 10; <span class="comment">// Largeur de l&#39;aire de jeu</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_tetris_widget.html">   66</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_tetris_widget.html">TetrisWidget</a> : <span class="keyword">public</span> QFrame</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    Q_OBJECT</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="class_tetris_widget.html#af8920e594d0282be169b9eb14088134d">TetrisWidget</a>(QWidget *parent = <span class="keyword">nullptr</span>, Qt::WindowFlags f = Qt::WindowFlags());</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;QMediaPlaylist&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;QMediaPlayer&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * FREE : indique que la case du tableau est vide</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * FILLED : indique que la case du tableau est pleine</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    FREE,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    FILLED</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} TetrisValue_e;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * O : La forme O</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * I : La forme I</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * J : La forme J</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * L : La forme L</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * T : La forme T</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * S : La forme S</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * Z : La forme Z</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * NO_SHAPE : Pas de forme</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    O,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    I,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    J,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    L,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    T,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    S,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Z,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    NO_SHAPE</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} TetrisShape_e;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * ROTATION_0 : la rotation de 0° de la pièce</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * ROTATION_90 : la rotation de 90° de la pièce</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * ROTATION_180 : la rotation de 180° de la pièce</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * ROTATION_270 : la rotation de 270° de la pièce</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    ROTATION_0,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    ROTATION_90,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    ROTATION_180,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    ROTATION_270</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} TetrisRotation_e;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="struct_border.html">   59</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_border.html">Border</a> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">int</span> dbound; <span class="comment">// Bordure inférieure de la pièce</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">int</span> lbound; <span class="comment">// Bordure gauche de la pièce</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">int</span> rbound; <span class="comment">// Bordure droite de la pièce</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> BOARD_HEIGHT = 20; <span class="comment">// Hauteur de l&#39;aire de jeu</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> BOARD_WIDTH = 10; <span class="comment">// Largeur de l&#39;aire de jeu</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_tetris_widget.html">   68</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_tetris_widget.html">TetrisWidget</a> : <span class="keyword">public</span> QFrame</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a32e784d74265799d801b1eaae6c0862b">addPiece</a>();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#ad93689fe712ffcf9d37704f6c72603d0">downPiece</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a5bbbfd209332047c2f426ebc4362ddd0">getBorder</a>(<a class="code" href="struct_border.html">Border</a> &amp;border);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a0edccb43f53e201634bc472072ced58e">startTimer</a>(<span class="keywordtype">int</span> milliSeconds);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#aa296eca46ef231e19f0ba18ff0216057">setTimer</a>(<span class="keywordtype">int</span> milliSeconds);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a378ec9dfee991ed9bfca291c7c29e87d">stopTimer</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#adec409be01c51e2b89aeea2560bcbf22">changeTable</a>();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a864c31aaeaefa24289c8fb36efaaec56">blockRotate</a>();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_tetris_widget.html#a251c24b2224003be2a54157b00bd0e05">clearRow</a>();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_tetris_widget.html#ad9138320d4d74c0325446f6b95d4a11d">isGameOver</a>();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#ac83ce71436c1a9706282c9b24eaf3a16">resetGame</a>();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> deletedRowCount = 0;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;signals:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> endOfGame();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> rowDeleted();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> oneRowDeleted();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> twoRowDeleted();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> threeRowDeleted();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> fourRowDeleted();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a2adb5bbcf8daedbaa3d1d488e6e0a8f8">keyPressEvent</a>(QKeyEvent *event);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#af748d7470db0b3445ee82da6ee3e6d5e">paintEvent</a>(QPaintEvent *pEvent);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_tetris_widget.html#af8920e594d0282be169b9eb14088134d">TetrisWidget</a>(QWidget *parent = <span class="keyword">nullptr</span>, Qt::WindowFlags f = Qt::WindowFlags());</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a32e784d74265799d801b1eaae6c0862b">addPiece</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#ad93689fe712ffcf9d37704f6c72603d0">downPiece</a>();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a994a7635a27fd7bf2e81f4a7783c38ca">leftPiece</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#af799816e485b52d93f85700763f35a7c">rightPiece</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a5bbbfd209332047c2f426ebc4362ddd0">getBorder</a>(<a class="code" href="struct_border.html">Border</a> &amp;border);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a0edccb43f53e201634bc472072ced58e">startTimer</a>(<span class="keywordtype">int</span> milliSeconds);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#aa296eca46ef231e19f0ba18ff0216057">setTimer</a>(<span class="keywordtype">int</span> milliSeconds);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a378ec9dfee991ed9bfca291c7c29e87d">stopTimer</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#adec409be01c51e2b89aeea2560bcbf22">changeTable</a>();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a864c31aaeaefa24289c8fb36efaaec56">blockRotate</a>();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_tetris_widget.html#a251c24b2224003be2a54157b00bd0e05">clearRow</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_tetris_widget.html#ad9138320d4d74c0325446f6b95d4a11d">isGameOver</a>();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#ac83ce71436c1a9706282c9b24eaf3a16">resetGame</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a86c2daa74715f1c126dd9167cc024945">startMusic</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a55c9efcda6380fb05a04d04359499c31">stopMusic</a>();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;signals:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> endOfGame();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> rowDeleted();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> oneRowDeleted();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> twoRowDeleted();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> threeRowDeleted();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> fourRowDeleted();</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a7bb0a7c10785e428980e9da5894b71fb">initTimer</a>();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// Déclaration du tableau contenant la pièce en mouvement</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">int</span> tbTetris[BOARD_WIDTH][BOARD_HEIGHT];</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a2adb5bbcf8daedbaa3d1d488e6e0a8f8">keyPressEvent</a>(QKeyEvent *event);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#af748d7470db0b3445ee82da6ee3e6d5e">paintEvent</a>(QPaintEvent *pEvent);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tetris_widget.html#a7bb0a7c10785e428980e9da5894b71fb">initTimer</a>();</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">// Déclaration du tableau contenant les pièces déjà placées</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">int</span> tbTetrisFixed[BOARD_WIDTH][BOARD_HEIGHT];</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// Forme de la pièce en mouvement</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    TetrisShape shape = NO_SHAPE;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// L&#39;angle de rotation de la pièce en mouvement</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    TetrisRotation rotation = ROTATION_0;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">int</span> posX = 5;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">int</span> posY = 0;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">bool</span> isRunning;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">bool</span> needNextPiece = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">bool</span> isCollide;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="struct_border.html">Border</a> currentBorder;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    QTimer *timer;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif // TETRISWIDGET_H</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// Déclaration du tableau contenant la pièce en mouvement</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">int</span> tbTetris[BOARD_WIDTH][BOARD_HEIGHT];</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// Déclaration du tableau contenant les pièces déjà placées</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">int</span> tbTetrisFixed[BOARD_WIDTH][BOARD_HEIGHT];</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment">// Forme de la pièce en mouvement</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    TetrisShape_e shape = NO_SHAPE;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">// L&#39;angle de rotation de la pièce en mouvement</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    TetrisRotation_e rotation = ROTATION_0;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">int</span> posX = 5;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">int</span> posY = 0;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">bool</span> isRunning;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">bool</span> needNextPiece = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">bool</span> isCollide;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">bool</span> isCollideRight;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">bool</span> isCollideLeft;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">int</span> deletedRowCount = 0;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="struct_border.html">Border</a> currentBorder;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    QTimer *timer;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    QMediaPlaylist *playlist = <span class="keyword">new</span> QMediaPlaylist();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    QMediaPlayer *music = <span class="keyword">new</span> QMediaPlayer();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif // TETRISWIDGET_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_tetris_widget_html_a251c24b2224003be2a54157b00bd0e05"><div class="ttname"><a href="class_tetris_widget.html#a251c24b2224003be2a54157b00bd0e05">TetrisWidget::clearRow</a></div><div class="ttdeci">int clearRow()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:300</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a0edccb43f53e201634bc472072ced58e"><div class="ttname"><a href="class_tetris_widget.html#a0edccb43f53e201634bc472072ced58e">TetrisWidget::startTimer</a></div><div class="ttdeci">void startTimer(int milliSeconds)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:656</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a32e784d74265799d801b1eaae6c0862b"><div class="ttname"><a href="class_tetris_widget.html#a32e784d74265799d801b1eaae6c0862b">TetrisWidget::addPiece</a></div><div class="ttdeci">void addPiece()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:88</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_ac83ce71436c1a9706282c9b24eaf3a16"><div class="ttname"><a href="class_tetris_widget.html#ac83ce71436c1a9706282c9b24eaf3a16">TetrisWidget::resetGame</a></div><div class="ttdeci">void resetGame()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:707</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_adec409be01c51e2b89aeea2560bcbf22"><div class="ttname"><a href="class_tetris_widget.html#adec409be01c51e2b89aeea2560bcbf22">TetrisWidget::changeTable</a></div><div class="ttdeci">void changeTable()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:213</div></div>
-<div class="ttc" id="aclass_tetris_widget_html"><div class="ttname"><a href="class_tetris_widget.html">TetrisWidget</a></div><div class="ttdef"><b>Definition:</b> tetriswidget.h:67</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a2adb5bbcf8daedbaa3d1d488e6e0a8f8"><div class="ttname"><a href="class_tetris_widget.html#a2adb5bbcf8daedbaa3d1d488e6e0a8f8">TetrisWidget::keyPressEvent</a></div><div class="ttdeci">void keyPressEvent(QKeyEvent *event)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:717</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a864c31aaeaefa24289c8fb36efaaec56"><div class="ttname"><a href="class_tetris_widget.html#a864c31aaeaefa24289c8fb36efaaec56">TetrisWidget::blockRotate</a></div><div class="ttdeci">void blockRotate()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:341</div></div>
-<div class="ttc" id="astruct_border_html"><div class="ttname"><a href="struct_border.html">Border</a></div><div class="ttdef"><b>Definition:</b> tetriswidget.h:57</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_ad93689fe712ffcf9d37704f6c72603d0"><div class="ttname"><a href="class_tetris_widget.html#ad93689fe712ffcf9d37704f6c72603d0">TetrisWidget::downPiece</a></div><div class="ttdeci">void downPiece()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:171</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a7bb0a7c10785e428980e9da5894b71fb"><div class="ttname"><a href="class_tetris_widget.html#a7bb0a7c10785e428980e9da5894b71fb">TetrisWidget::initTimer</a></div><div class="ttdeci">void initTimer()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:681</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_ad9138320d4d74c0325446f6b95d4a11d"><div class="ttname"><a href="class_tetris_widget.html#ad9138320d4d74c0325446f6b95d4a11d">TetrisWidget::isGameOver</a></div><div class="ttdeci">bool isGameOver()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:695</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a378ec9dfee991ed9bfca291c7c29e87d"><div class="ttname"><a href="class_tetris_widget.html#a378ec9dfee991ed9bfca291c7c29e87d">TetrisWidget::stopTimer</a></div><div class="ttdeci">void stopTimer()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:674</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_aa296eca46ef231e19f0ba18ff0216057"><div class="ttname"><a href="class_tetris_widget.html#aa296eca46ef231e19f0ba18ff0216057">TetrisWidget::setTimer</a></div><div class="ttdeci">void setTimer(int milliSeconds)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:667</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_af748d7470db0b3445ee82da6ee3e6d5e"><div class="ttname"><a href="class_tetris_widget.html#af748d7470db0b3445ee82da6ee3e6d5e">TetrisWidget::paintEvent</a></div><div class="ttdeci">void paintEvent(QPaintEvent *pEvent)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:34</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_af8920e594d0282be169b9eb14088134d"><div class="ttname"><a href="class_tetris_widget.html#af8920e594d0282be169b9eb14088134d">TetrisWidget::TetrisWidget</a></div><div class="ttdeci">TetrisWidget(QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags())</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:16</div></div>
-<div class="ttc" id="aclass_tetris_widget_html_a5bbbfd209332047c2f426ebc4362ddd0"><div class="ttname"><a href="class_tetris_widget.html#a5bbbfd209332047c2f426ebc4362ddd0">TetrisWidget::getBorder</a></div><div class="ttdeci">void getBorder(Border &amp;border)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:265</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a251c24b2224003be2a54157b00bd0e05"><div class="ttname"><a href="class_tetris_widget.html#a251c24b2224003be2a54157b00bd0e05">TetrisWidget::clearRow</a></div><div class="ttdeci">int clearRow()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:369</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a86c2daa74715f1c126dd9167cc024945"><div class="ttname"><a href="class_tetris_widget.html#a86c2daa74715f1c126dd9167cc024945">TetrisWidget::startMusic</a></div><div class="ttdeci">void startMusic()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:787</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a0edccb43f53e201634bc472072ced58e"><div class="ttname"><a href="class_tetris_widget.html#a0edccb43f53e201634bc472072ced58e">TetrisWidget::startTimer</a></div><div class="ttdeci">void startTimer(int milliSeconds)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:725</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_af799816e485b52d93f85700763f35a7c"><div class="ttname"><a href="class_tetris_widget.html#af799816e485b52d93f85700763f35a7c">TetrisWidget::rightPiece</a></div><div class="ttdeci">void rightPiece()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:247</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a32e784d74265799d801b1eaae6c0862b"><div class="ttname"><a href="class_tetris_widget.html#a32e784d74265799d801b1eaae6c0862b">TetrisWidget::addPiece</a></div><div class="ttdeci">void addPiece()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:87</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_ac83ce71436c1a9706282c9b24eaf3a16"><div class="ttname"><a href="class_tetris_widget.html#ac83ce71436c1a9706282c9b24eaf3a16">TetrisWidget::resetGame</a></div><div class="ttdeci">void resetGame()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:778</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_adec409be01c51e2b89aeea2560bcbf22"><div class="ttname"><a href="class_tetris_widget.html#adec409be01c51e2b89aeea2560bcbf22">TetrisWidget::changeTable</a></div><div class="ttdeci">void changeTable()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:282</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a994a7635a27fd7bf2e81f4a7783c38ca"><div class="ttname"><a href="class_tetris_widget.html#a994a7635a27fd7bf2e81f4a7783c38ca">TetrisWidget::leftPiece</a></div><div class="ttdeci">void leftPiece()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:212</div></div>
+<div class="ttc" id="aclass_tetris_widget_html"><div class="ttname"><a href="class_tetris_widget.html">TetrisWidget</a></div><div class="ttdef"><b>Definition:</b> tetriswidget.h:69</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a2adb5bbcf8daedbaa3d1d488e6e0a8f8"><div class="ttname"><a href="class_tetris_widget.html#a2adb5bbcf8daedbaa3d1d488e6e0a8f8">TetrisWidget::keyPressEvent</a></div><div class="ttdeci">void keyPressEvent(QKeyEvent *event)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:809</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a864c31aaeaefa24289c8fb36efaaec56"><div class="ttname"><a href="class_tetris_widget.html#a864c31aaeaefa24289c8fb36efaaec56">TetrisWidget::blockRotate</a></div><div class="ttdeci">void blockRotate()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:410</div></div>
+<div class="ttc" id="astruct_border_html"><div class="ttname"><a href="struct_border.html">Border</a></div><div class="ttdef"><b>Definition:</b> tetriswidget.h:59</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_ad93689fe712ffcf9d37704f6c72603d0"><div class="ttname"><a href="class_tetris_widget.html#ad93689fe712ffcf9d37704f6c72603d0">TetrisWidget::downPiece</a></div><div class="ttdeci">void downPiece()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:170</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a7bb0a7c10785e428980e9da5894b71fb"><div class="ttname"><a href="class_tetris_widget.html#a7bb0a7c10785e428980e9da5894b71fb">TetrisWidget::initTimer</a></div><div class="ttdeci">void initTimer()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:751</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_ad9138320d4d74c0325446f6b95d4a11d"><div class="ttname"><a href="class_tetris_widget.html#ad9138320d4d74c0325446f6b95d4a11d">TetrisWidget::isGameOver</a></div><div class="ttdeci">bool isGameOver()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:765</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a378ec9dfee991ed9bfca291c7c29e87d"><div class="ttname"><a href="class_tetris_widget.html#a378ec9dfee991ed9bfca291c7c29e87d">TetrisWidget::stopTimer</a></div><div class="ttdeci">void stopTimer()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:744</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_aa296eca46ef231e19f0ba18ff0216057"><div class="ttname"><a href="class_tetris_widget.html#aa296eca46ef231e19f0ba18ff0216057">TetrisWidget::setTimer</a></div><div class="ttdeci">void setTimer(int milliSeconds)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:737</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_af748d7470db0b3445ee82da6ee3e6d5e"><div class="ttname"><a href="class_tetris_widget.html#af748d7470db0b3445ee82da6ee3e6d5e">TetrisWidget::paintEvent</a></div><div class="ttdeci">void paintEvent(QPaintEvent *pEvent)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:33</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_af8920e594d0282be169b9eb14088134d"><div class="ttname"><a href="class_tetris_widget.html#af8920e594d0282be169b9eb14088134d">TetrisWidget::TetrisWidget</a></div><div class="ttdeci">TetrisWidget(QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags())</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:15</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a5bbbfd209332047c2f426ebc4362ddd0"><div class="ttname"><a href="class_tetris_widget.html#a5bbbfd209332047c2f426ebc4362ddd0">TetrisWidget::getBorder</a></div><div class="ttdeci">void getBorder(Border &amp;border)</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:334</div></div>
+<div class="ttc" id="aclass_tetris_widget_html_a55c9efcda6380fb05a04d04359499c31"><div class="ttname"><a href="class_tetris_widget.html#a55c9efcda6380fb05a04d04359499c31">TetrisWidget::stopMusic</a></div><div class="ttdeci">void stopMusic()</div><div class="ttdef"><b>Definition:</b> tetriswidget.cpp:799</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Généré par&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

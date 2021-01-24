@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['settimer_21',['setTimer',['../class_tetris_widget.html#aa296eca46ef231e19f0ba18ff0216057',1,'TetrisWidget']]],
-  ['starttimer_22',['startTimer',['../class_tetris_widget.html#a0edccb43f53e201634bc472072ced58e',1,'TetrisWidget']]],
-  ['stoptimer_23',['stopTimer',['../class_tetris_widget.html#a378ec9dfee991ed9bfca291c7c29e87d',1,'TetrisWidget']]]
+  ['resetgame_22',['resetGame',['../class_tetris_widget.html#ac83ce71436c1a9706282c9b24eaf3a16',1,'TetrisWidget']]],
+  ['rightpiece_23',['rightPiece',['../class_tetris_widget.html#af799816e485b52d93f85700763f35a7c',1,'TetrisWidget']]]
 ];

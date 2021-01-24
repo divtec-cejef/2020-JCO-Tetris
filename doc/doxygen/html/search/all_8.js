@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nextpiece_11',['NextPiece',['../class_next_piece.html',1,'']]]
+  ['mainfrm_12',['MainFrm',['../class_main_frm.html',1,'']]]
 ];

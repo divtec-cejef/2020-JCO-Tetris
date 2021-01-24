@@ -66,7 +66,6 @@ $(function() {
 <a href="#pub-slots">Connecteurs publics</a> &#124;
 <a href="#signals">Signaux</a> &#124;
 <a href="#pub-methods">Fonctions membres publiques</a> &#124;
-<a href="#pub-attribs">Attributs publics</a> &#124;
 <a href="#pro-methods">Fonctions membres protégées</a> &#124;
 <a href="#pri-attribs">Attributs privés</a> &#124;
 <a href="class_tetris_widget-members.html">Liste de tous les membres</a>  </div>
@@ -115,6 +114,10 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="separator:a32e784d74265799d801b1eaae6c0862b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad93689fe712ffcf9d37704f6c72603d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#ad93689fe712ffcf9d37704f6c72603d0">downPiece</a> ()</td></tr>
 <tr class="separator:ad93689fe712ffcf9d37704f6c72603d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a994a7635a27fd7bf2e81f4a7783c38ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#a994a7635a27fd7bf2e81f4a7783c38ca">leftPiece</a> ()</td></tr>
+<tr class="separator:a994a7635a27fd7bf2e81f4a7783c38ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af799816e485b52d93f85700763f35a7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#af799816e485b52d93f85700763f35a7c">rightPiece</a> ()</td></tr>
+<tr class="separator:af799816e485b52d93f85700763f35a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bbbfd209332047c2f426ebc4362ddd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#a5bbbfd209332047c2f426ebc4362ddd0">getBorder</a> (<a class="el" href="struct_border.html">Border</a> &amp;border)</td></tr>
 <tr class="separator:a5bbbfd209332047c2f426ebc4362ddd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0edccb43f53e201634bc472072ced58e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#a0edccb43f53e201634bc472072ced58e">startTimer</a> (int milliSeconds)</td></tr>
@@ -133,12 +136,10 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="separator:ad9138320d4d74c0325446f6b95d4a11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac83ce71436c1a9706282c9b24eaf3a16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#ac83ce71436c1a9706282c9b24eaf3a16">resetGame</a> ()</td></tr>
 <tr class="separator:ac83ce71436c1a9706282c9b24eaf3a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Attributs publics</h2></td></tr>
-<tr class="memitem:a328c10e2086e433038267943ac54ab42"><td class="memItemLeft" align="right" valign="top"><a id="a328c10e2086e433038267943ac54ab42"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>deletedRowCount</b> = 0</td></tr>
-<tr class="separator:a328c10e2086e433038267943ac54ab42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86c2daa74715f1c126dd9167cc024945"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#a86c2daa74715f1c126dd9167cc024945">startMusic</a> ()</td></tr>
+<tr class="separator:a86c2daa74715f1c126dd9167cc024945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c9efcda6380fb05a04d04359499c31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tetris_widget.html#a55c9efcda6380fb05a04d04359499c31">stopMusic</a> ()</td></tr>
+<tr class="separator:a55c9efcda6380fb05a04d04359499c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Fonctions membres protégées</h2></td></tr>
@@ -155,12 +156,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>tbTetris</b> [BOARD_WI
 <tr class="memitem:aaa5377753d72c3778b1041923f326af4"><td class="memItemLeft" align="right" valign="top"><a id="aaa5377753d72c3778b1041923f326af4"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>tbTetrisFixed</b> [BOARD_WIDTH][BOARD_HEIGHT]</td></tr>
 <tr class="separator:aaa5377753d72c3778b1041923f326af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63f0ad4fe5a2878b2e33cf6ec8f96526"><td class="memItemLeft" align="right" valign="top"><a id="a63f0ad4fe5a2878b2e33cf6ec8f96526"></a>
-TetrisShape&#160;</td><td class="memItemRight" valign="bottom"><b>shape</b> = NO_SHAPE</td></tr>
-<tr class="separator:a63f0ad4fe5a2878b2e33cf6ec8f96526"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7371999e43187c6353470873074864a"><td class="memItemLeft" align="right" valign="top"><a id="ac7371999e43187c6353470873074864a"></a>
-TetrisRotation&#160;</td><td class="memItemRight" valign="bottom"><b>rotation</b> = ROTATION_0</td></tr>
-<tr class="separator:ac7371999e43187c6353470873074864a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a637d8445d4f78189b0144e92d0b6d1d8"><td class="memItemLeft" align="right" valign="top"><a id="a637d8445d4f78189b0144e92d0b6d1d8"></a>
+TetrisShape_e&#160;</td><td class="memItemRight" valign="bottom"><b>shape</b> = NO_SHAPE</td></tr>
+<tr class="separator:a637d8445d4f78189b0144e92d0b6d1d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833867451e45a77e5be1337391c47cf5"><td class="memItemLeft" align="right" valign="top"><a id="a833867451e45a77e5be1337391c47cf5"></a>
+TetrisRotation_e&#160;</td><td class="memItemRight" valign="bottom"><b>rotation</b> = ROTATION_0</td></tr>
+<tr class="separator:a833867451e45a77e5be1337391c47cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c918b1503d9d7f7dfae7276740c397f"><td class="memItemLeft" align="right" valign="top"><a id="a5c918b1503d9d7f7dfae7276740c397f"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>posX</b> = 5</td></tr>
 <tr class="separator:a5c918b1503d9d7f7dfae7276740c397f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,12 +177,27 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>needNextPiece</b> = t
 <tr class="memitem:afa350d61e4a6864c4bb830a99a9ca5f4"><td class="memItemLeft" align="right" valign="top"><a id="afa350d61e4a6864c4bb830a99a9ca5f4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isCollide</b></td></tr>
 <tr class="separator:afa350d61e4a6864c4bb830a99a9ca5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b337ccf0d1c8ea805bda8b94f24372e"><td class="memItemLeft" align="right" valign="top"><a id="a3b337ccf0d1c8ea805bda8b94f24372e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isCollideRight</b></td></tr>
+<tr class="separator:a3b337ccf0d1c8ea805bda8b94f24372e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad67f8b3cf1e62c6985786eeaeb8b305b"><td class="memItemLeft" align="right" valign="top"><a id="ad67f8b3cf1e62c6985786eeaeb8b305b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isCollideLeft</b></td></tr>
+<tr class="separator:ad67f8b3cf1e62c6985786eeaeb8b305b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a328c10e2086e433038267943ac54ab42"><td class="memItemLeft" align="right" valign="top"><a id="a328c10e2086e433038267943ac54ab42"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>deletedRowCount</b> = 0</td></tr>
+<tr class="separator:a328c10e2086e433038267943ac54ab42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21c65d21f80b96dd561ca58babb74e63"><td class="memItemLeft" align="right" valign="top"><a id="a21c65d21f80b96dd561ca58babb74e63"></a>
 <a class="el" href="struct_border.html">Border</a>&#160;</td><td class="memItemRight" valign="bottom"><b>currentBorder</b></td></tr>
 <tr class="separator:a21c65d21f80b96dd561ca58babb74e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16bb37a9bb36b39d4449bdadfd65fc7e"><td class="memItemLeft" align="right" valign="top"><a id="a16bb37a9bb36b39d4449bdadfd65fc7e"></a>
 QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></tr>
 <tr class="separator:a16bb37a9bb36b39d4449bdadfd65fc7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addd372c63d912191ceb37dbe42a5a0a0"><td class="memItemLeft" align="right" valign="top"><a id="addd372c63d912191ceb37dbe42a5a0a0"></a>
+QMediaPlaylist *&#160;</td><td class="memItemRight" valign="bottom"><b>playlist</b> = new QMediaPlaylist()</td></tr>
+<tr class="separator:addd372c63d912191ceb37dbe42a5a0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3a44f0cf5357fb3213409f548cf5211"><td class="memItemLeft" align="right" valign="top"><a id="aa3a44f0cf5357fb3213409f548cf5211"></a>
+QMediaPlayer *&#160;</td><td class="memItemRight" valign="bottom"><b>music</b> = new QMediaPlayer()</td></tr>
+<tr class="separator:aa3a44f0cf5357fb3213409f548cf5211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="af8920e594d0282be169b9eb14088134d"></a>
@@ -264,7 +280,7 @@ QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></t
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Transfère tous les carreaux remplis du tableau de la pièce mobile Dans le tableau des pièces fixes </p>
+<p>Transfère tous les carreaux remplis du tableau de la pièce mobile dans le tableau des pièces fixes </p>
 
 </div>
 </div>
@@ -321,7 +337,7 @@ QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></t
 </div><div class="memdoc">
 <p>Définit les bordures des pièces </p><dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
-    <tr><td class="paramname">border</td><td>strucutre des bordures </td></tr>
+    <tr><td class="paramname">border</td><td>structure des bordures </td></tr>
   </table>
   </dd>
 </dl>
@@ -404,6 +420,24 @@ QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></t
 
 </div>
 </div>
+<a id="a994a7635a27fd7bf2e81f4a7783c38ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a994a7635a27fd7bf2e81f4a7783c38ca">&#9670;&nbsp;</a></span>leftPiece()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TetrisWidget::leftPiece </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Déplace la pièce vers la gauche si aucune pièce ne gêne </p>
+
+</div>
+</div>
 <a id="af748d7470db0b3445ee82da6ee3e6d5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af748d7470db0b3445ee82da6ee3e6d5e">&#9670;&nbsp;</a></span>paintEvent()</h2>
 
@@ -450,6 +484,24 @@ QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></t
 
 </div>
 </div>
+<a id="af799816e485b52d93f85700763f35a7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af799816e485b52d93f85700763f35a7c">&#9670;&nbsp;</a></span>rightPiece()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TetrisWidget::rightPiece </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Déplace la pièce vers la droite si aucune pièce ne gêne </p>
+
+</div>
+</div>
 <a id="aa296eca46ef231e19f0ba18ff0216057"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa296eca46ef231e19f0ba18ff0216057">&#9670;&nbsp;</a></span>setTimer()</h2>
 
@@ -467,10 +519,28 @@ QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></t
 </div><div class="memdoc">
 <p>Change la durée du timer </p><dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
-    <tr><td class="paramname">seconds</td><td>le nombre de secondes </td></tr>
+    <tr><td class="paramname">milliSeconds</td><td>le nouveau nombre de millisecondes entre deux exécutions du timer </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a86c2daa74715f1c126dd9167cc024945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86c2daa74715f1c126dd9167cc024945">&#9670;&nbsp;</a></span>startMusic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TetrisWidget::startMusic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Démarre la musique du jeu </p>
 
 </div>
 </div>
@@ -491,10 +561,28 @@ QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></t
 </div><div class="memdoc">
 <p>Lance le timer </p><dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
-    <tr><td class="paramname">seconds</td><td>le nombre de secondes entre deux exécutions du timer </td></tr>
+    <tr><td class="paramname">milliSeconds</td><td>le nombre de millisecondes entre deux exécutions du timer </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a55c9efcda6380fb05a04d04359499c31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c9efcda6380fb05a04d04359499c31">&#9670;&nbsp;</a></span>stopMusic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TetrisWidget::stopMusic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Arrête la musique du jeu Lance la musique de Game Over </p>
 
 </div>
 </div>
