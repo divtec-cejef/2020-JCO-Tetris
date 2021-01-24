@@ -1,6 +1,6 @@
 // 2020-JCO-Tetris
 // Auteur : Membrez Matteo
-// Date de la dernière modification : 11.01.21
+// Date de la dernière modification : 23.01.21
 
 #include "tetriswidget.h"
 
@@ -207,6 +207,7 @@ void TetrisWidget::downPiece() {
 
 /**
  * Déplace la pièce vers la gauche
+ * si aucune pièce ne gêne
  */
 void TetrisWidget::leftPiece() {
 
@@ -241,6 +242,7 @@ void TetrisWidget::leftPiece() {
 
 /**
  * Déplace la pièce vers la droite
+ * si aucune pièce ne gêne
  */
 void TetrisWidget::rightPiece() {
 
@@ -275,7 +277,7 @@ void TetrisWidget::rightPiece() {
 
 /**
  * Transfère tous les carreaux remplis du tableau de la pièce mobile
- * Dans le tableau des pièces fixes
+ * dans le tableau des pièces fixes
  */
 void TetrisWidget::changeTable() {
     for(int i = BOARD_WIDTH-1; i >= 0; i--)
@@ -327,7 +329,7 @@ void TetrisWidget::changeTable() {
 
 /**
  * Définit les bordures des pièces
- * @param border strucutre des bordures
+ * @param border structure des bordures
  */
 void TetrisWidget::getBorder(Border &border) {
 
@@ -718,7 +720,7 @@ void TetrisWidget::blockRotate() {
 
 /**
  * Lance le timer
- * @param seconds le nombre de secondes entre deux exécutions du timer
+ * @param milliSeconds le nombre de millisecondes entre deux exécutions du timer
  */
 void TetrisWidget::startTimer(int milliSeconds) {
     timer = new QTimer(this);
@@ -730,7 +732,7 @@ void TetrisWidget::startTimer(int milliSeconds) {
 
 /**
  * Change la durée du timer
- * @param seconds le nombre de secondes
+ * @param milliSeconds le nouveau nombre de millisecondes entre deux exécutions du timer
  */
 void TetrisWidget::setTimer(int milliSeconds) {
     timer->setInterval(milliSeconds);

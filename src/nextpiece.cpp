@@ -1,7 +1,6 @@
 // 2020-JCO-Tetris
-// 2020-JCO-Tetris
 // Auteur : Membrez Matteo
-// Date de la dernière modification : 22.12.20
+// Date de la dernière modification : 24.01.21
 
 #include "nextpiece.h"
 
@@ -14,7 +13,7 @@ NextPiece::NextPiece(QWidget *parent, Qt::WindowFlags f) : QFrame (parent, f)
 
 /**
  * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- * Dessine la future pièce
+ * Dessine la prochaine pièce
  */
 void NextPiece::paintEvent(QPaintEvent* pEvent) {
 
@@ -27,12 +26,6 @@ void NextPiece::paintEvent(QPaintEvent* pEvent) {
 
     const int tilePosX = 34;
     const int tilePosY = 34;
-
-    // Création de la prochaine pièce
-    painter.fillRect(tilePosX*2, tilePosY*0, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
-    painter.fillRect(tilePosX*2, tilePosY*1, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
-    painter.fillRect(tilePosX*2, tilePosY*2, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
-    painter.fillRect(tilePosX*2, tilePosY*3, TILE_SIZE, TILE_SIZE, QBrush(Qt::red));
 
     int x = 0;
     int y = TILE_SIZE;

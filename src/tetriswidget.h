@@ -1,6 +1,6 @@
 // 2020-JCO-Tetris
 // Auteur : Membrez Matteo
-// Date de la dernière modification : 11.01.21
+// Date de la dernière modification : 23.01.21
 
 #ifndef TETRISWIDGET_H
 #define TETRISWIDGET_H
@@ -11,13 +11,13 @@
 #include <QMediaPlayer>
 
 /*
- * FREE : indique que le point du tableau est vide
- * FILLED : indique que le point du tableau contient un bloc
+ * FREE : indique que la case du tableau est vide
+ * FILLED : indique que la case du tableau est pleine
  */
 typedef enum {
     FREE,
     FILLED
-} TetrisValue;
+} TetrisValue_e;
 
 /*
  * O : La forme O
@@ -38,7 +38,7 @@ typedef enum {
     S,
     Z,
     NO_SHAPE
-} TetrisShape;
+} TetrisShape_e;
 
 /*
  * ROTATION_0 : la rotation de 0° de la pièce
@@ -51,7 +51,7 @@ typedef enum {
     ROTATION_90,
     ROTATION_180,
     ROTATION_270
-} TetrisRotation;
+} TetrisRotation_e;
 
 /**
  * Structure qui représente les limites de la pièce
@@ -111,10 +111,10 @@ private:
     int tbTetrisFixed[BOARD_WIDTH][BOARD_HEIGHT];
 
     // Forme de la pièce en mouvement
-    TetrisShape shape = NO_SHAPE;
+    TetrisShape_e shape = NO_SHAPE;
 
     // L'angle de rotation de la pièce en mouvement
-    TetrisRotation rotation = ROTATION_0;
+    TetrisRotation_e rotation = ROTATION_0;
 
     int posX = 5;
     int posY = 0;

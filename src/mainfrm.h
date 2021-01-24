@@ -1,6 +1,6 @@
 // 2020-JCO-Tetris
 // Auteur : Membrez Matteo
-// Date de la dernière modification : 22.12.20
+// Date de la dernière modification : 20.01.21
 
 #ifndef MAINFRM_H
 #define MAINFRM_H

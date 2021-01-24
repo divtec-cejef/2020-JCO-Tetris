@@ -31,6 +31,9 @@ MainFrm::~MainFrm()
     delete ui;
 }
 
+/**
+ * Initialise la décoration des éléments
+ */
 void MainFrm::initStyle() {
     ui->BT_Start->setStyleSheet("color: white;"
                                 "border-radius: 8px;"
@@ -38,7 +41,12 @@ void MainFrm::initStyle() {
 }
 
 /**
- * Lance le jeu au clic du bouton
+ * Au clic du bouton :
+ * Lance le timer
+ * Lance le jeu
+ * Désactive le bouton start
+ * Rend invisible le texte "GameOver"
+ * Réinitialise le score du joueur
  */
 void MainFrm::on_BT_Start_clicked()
 {
